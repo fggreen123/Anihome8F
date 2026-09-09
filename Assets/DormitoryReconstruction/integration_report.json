@@ -1,0 +1,52 @@
+{
+    "status": "success",
+    "generatedUtc": "2026-09-08T17:14:19.9935150Z",
+    "unityVersion": "6000.3.15f1",
+    "model": "Assets/DormitoryReconstruction/Models/DormitoryFloor.fbx",
+    "scene": "Assets/DormitoryReconstruction/Scenes/DormitoryFloor.unity",
+    "prefab": "Assets/DormitoryReconstruction/Prefabs/DormitoryFloor.prefab",
+    "renderPipeline": "PC_RPAsset",
+    "estimatedDimensionsNotice": "Photo-based approximation: room count, dimensions and unseen connections are inferred; not surveyed.",
+    "modelBoundsCenter": {
+        "x": -1.369999885559082,
+        "y": 0.09249997138977051,
+        "z": -11.510000228881836
+    },
+    "modelBoundsSize": {
+        "x": 10.420000076293946,
+        "y": 5.965000152587891,
+        "z": 33.349998474121097
+    },
+    "rendererCount": 1563,
+    "meshCount": 1563,
+    "triangles": 239484,
+    "materialCount": 33,
+    "colliderCount": 486,
+    "pointLights": 20,
+    "directionalLights": 1,
+    "cameras": 6,
+    "missingMaterials": [],
+    "missingMarkers": [],
+    "floorChecks": [
+        "Corridor_A: floor collider below camera",
+        "Corridor_B: floor collider below camera",
+        "Lobby_A: floor collider below camera",
+        "Lobby_B: floor collider below camera",
+        "Study: floor collider below camera",
+        "Stairs: floor collider below camera"
+    ],
+    "passageChecks": [
+        "Main corridor: 0.44 m capsule has clear passage between viewpoints"
+    ],
+    "reflectionProbes": 3,
+    "screenshots": [
+        "C:\\Users\\jiwoo\\Documents\\Codex\\2026-09-09\\new-chat-2\\outputs\\Unity_Corridor_A.png",
+        "C:\\Users\\jiwoo\\Documents\\Codex\\2026-09-09\\new-chat-2\\outputs\\Unity_Corridor_B.png",
+        "C:\\Users\\jiwoo\\Documents\\Codex\\2026-09-09\\new-chat-2\\outputs\\Unity_Lobby_A.png",
+        "C:\\Users\\jiwoo\\Documents\\Codex\\2026-09-09\\new-chat-2\\outputs\\Unity_Lobby_B.png",
+        "C:\\Users\\jiwoo\\Documents\\Codex\\2026-09-09\\new-chat-2\\outputs\\Unity_Study.png",
+        "C:\\Users\\jiwoo\\Documents\\Codex\\2026-09-09\\new-chat-2\\outputs\\Unity_Stairs.png"
+    ],
+    "errors": [],
+    "walkthrough": "Open Scenes/DormitoryFloor.unity alone. Play: WASD or arrows, Shift to move faster, left click for mouse look, Escape to release pointer."
+}
