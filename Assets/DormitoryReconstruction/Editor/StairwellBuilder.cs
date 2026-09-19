@@ -56,7 +56,7 @@ namespace Anihome.Dormitory.EditorTools
 
         static float PitchB(float z) => HALF + (HZ0 - z) * (RISE / GO);
 
-        const string MatRoot = "Assets/DormitoryReconstruction/Materials";
+        const string MatRoot = "Assets/DormitoryReconstruction/Map_Materials";
         const string TexRoot = "Assets/DormitoryReconstruction/Textures";
         const string ContainerName = "Stairwells";
 
@@ -239,7 +239,7 @@ namespace Anihome.Dormitory.EditorTools
                 float top = i * RISE;
                 r.Prism($"Step_A_{i:00}_Upper", QuadA(i - 1, i, 0f), top - RISE, top, p.tread, 1f, true);
                 r.Prism($"Step_A_{i:00}_Lower", QuadA(i - 1, i, 0f), top - SOF, top - RISE, p.white, 1f, true);
-                r.Prism($"Step_A_{i:00}_Nosing", StripA(i - 1, NOSE, 0.006f), top - 0.02f, top + 0.004f, p.rubber, UV, false);
+                r.Prism($"Step_A_{i:00}_Rubber", QuadA(i - 1, i, 0f), top, top + 0.004f, p.rubber, UV, false);
             }
             // 중간참으로 올라서는 마지막 챌판
             r.Prism("Step_A_08_Riser", StripA(STEPS, -0.03f, 0.006f), HALF - RISE, HALF, p.tread, 1f, false);
@@ -256,8 +256,8 @@ namespace Anihome.Dormitory.EditorTools
 
                 r.Box($"Step_B_{i:00}_Upper", XB0, XB1, top - RISE, top, za, zb, p.tread, true);
                 r.Box($"Step_B_{i:00}_Lower", XB0, XB1, top - SOF, top - RISE, za, zb, p.white, true);
-                r.Prism($"Step_B_{i:00}_Nosing", Rect(XB0 + 0.006f, XB1 - 0.006f, zF - NOSE, zF),
-                        top - 0.02f, top + 0.004f, p.rubber, UV, false);
+                r.Prism($"Step_B_{i:00}_Rubber", Rect(XB0, XB1, za, zb),
+                    top, top + 0.004f, p.rubber, UV, false);
             }
             r.Box("Step_B_08_Riser", XB0, XB1, H - RISE, H, LAND, LAND + 0.03f, p.tread);
         }
