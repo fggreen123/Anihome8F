@@ -56,7 +56,7 @@ namespace Anihome.Dormitory.EditorTools
 
         static float PitchB(float z) => HALF + (HZ0 - z) * (RISE / GO);
 
-        const string MatRoot = "Assets/DormitoryReconstruction/Map_Materials";
+        const string MatRoot = "Assets/DormitoryReconstruction/Materials";
         const string TexRoot = "Assets/DormitoryReconstruction/Textures";
         const string ContainerName = "Stairwells";
 
@@ -156,20 +156,22 @@ namespace Anihome.Dormitory.EditorTools
             int baseFloor = 8;
             for (int level = -1; level <= 1; level++)
             {
+                // 근거리 계단실 = 전자레인지 앞 계단
                 BuildModule(container.transform, "Stair Near F" + (baseFloor + level),
                     new Vector3(1.41f, level * H, 2.90f), 90f, +1f, p,
-                    level == 0, level == 1, baseFloor + level + 1);
+                    level == 0, level == 1, baseFloor + level + 1, true);
 
+                // 원거리 계단실 = 반대편 계단
                 BuildModule(container.transform, "Stair Far F" + (baseFloor + level),
                     new Vector3(1.41f, level * H, -20.70f), 90f, -1f, p,
-                    level == 0, level == 1, baseFloor + level + 1);
+                    level == 0, level == 1, baseFloor + level + 1, false);
             }
 
             TunePlayer();
             AssetDatabase.SaveAssets();
             EditorSceneManager_MarkDirty(SceneManager.GetActiveScene());
             Selection.activeGameObject = container;
-            Debug.Log($"[Stairs v6 복도 경계 정리] 계단실 6개 모듈(양끝 × 3개층). 기존 계단 {hidden}개를 껐습니다. Ctrl+S 로 저장하세요.");
+            Debug.Log($"[Stairs v7 게임 루프 연동] 계단실 6개 모듈(양끝 × 3개층). 기존 계단 {hidden}개를 껐습니다. Ctrl+S 로 저장하세요.");
         }
 
         [MenuItem("Tools/Dormitory/Restore Original Stairs", false, 41)]
@@ -184,7 +186,7 @@ namespace Anihome.Dormitory.EditorTools
         // ------------------------------------------------------------- 모듈
 
         static void BuildModule(Transform parent, string name, Vector3 origin, float yaw, float xs, Pal p,
-                                bool isExistingFloor, bool capTop, int upperFloor)
+                                bool isExistingFloor, bool capTop, int upperFloor, bool microwaveSide)
         {
             var go = new GameObject(name);
             go.transform.SetParent(parent, false);
@@ -202,6 +204,21 @@ namespace Anihome.Dormitory.EditorTools
             Lighting(r, p, capTop);
             Signage(r, p, upperFloor);
             Extinguisher(r, p);
+            GameGates(r, isExistingFloor, microwaveSide);
+        }
+
+        /// 게임 진행용 — 플레이 층에만 놓는다.
+        /// 올라가는 계단은 막고, 내려가는 계단 앞에는 확인 구역을 둔다.
+        static void GameGates(Rig r, bool isPlayLevel, bool microwaveSide)
+        {
+            if (!isPlayLevel) return;
+
+            r.Solid("UpStairBlocker", XA0 - 0.08f, XA1 + 0.04f, 0f, 2.30f, LAND - 0.08f, LAND + 0.12f);
+
+            var gate = r.Solid("DownStairGate", XB0 - 0.04f, XB1 + 0.08f, 0f, 2.30f, LAND - 0.50f, LAND + 0.06f, true);
+            var sg = gate.AddComponent<StairGate>();
+            sg.side = microwaveSide ? StairSide.Microwave : StairSide.Opposite;
+            sg.label = microwaveSide ? "전자레인지 앞 계단" : "반대편 계단";
         }
 
         static void Landings(Rig r, Pal p, bool capTop)
@@ -239,7 +256,7 @@ namespace Anihome.Dormitory.EditorTools
                 float top = i * RISE;
                 r.Prism($"Step_A_{i:00}_Upper", QuadA(i - 1, i, 0f), top - RISE, top, p.tread, 1f, true);
                 r.Prism($"Step_A_{i:00}_Lower", QuadA(i - 1, i, 0f), top - SOF, top - RISE, p.white, 1f, true);
-                r.Prism($"Step_A_{i:00}_Rubber", QuadA(i - 1, i, 0f), top, top + 0.004f, p.rubber, UV, false);
+                r.Prism($"Step_A_{i:00}_Nosing", StripA(i - 1, NOSE, 0.006f), top - 0.02f, top + 0.004f, p.rubber, UV, false);
             }
             // 중간참으로 올라서는 마지막 챌판
             r.Prism("Step_A_08_Riser", StripA(STEPS, -0.03f, 0.006f), HALF - RISE, HALF, p.tread, 1f, false);
@@ -256,8 +273,8 @@ namespace Anihome.Dormitory.EditorTools
 
                 r.Box($"Step_B_{i:00}_Upper", XB0, XB1, top - RISE, top, za, zb, p.tread, true);
                 r.Box($"Step_B_{i:00}_Lower", XB0, XB1, top - SOF, top - RISE, za, zb, p.white, true);
-                r.Prism($"Step_B_{i:00}_Rubber", Rect(XB0, XB1, za, zb),
-                    top, top + 0.004f, p.rubber, UV, false);
+                r.Prism($"Step_B_{i:00}_Nosing", Rect(XB0 + 0.006f, XB1 - 0.006f, zF - NOSE, zF),
+                        top - 0.02f, top + 0.004f, p.rubber, UV, false);
             }
             r.Box("Step_B_08_Riser", XB0, XB1, H - RISE, H, LAND, LAND + 0.03f, p.tread);
         }
@@ -411,7 +428,8 @@ namespace Anihome.Dormitory.EditorTools
             Material sign = p.Sign(upperFloor);
             if (sign == null) return;
             float cx = (CR + XO) * 0.5f;
-            r.Plate("Floor_Number_Plate", new Vector3(cx, HALF + 1.30f, WD - 0.013f), 0.30f, 0.34f, 180f, sign);
+            var plate = r.Plate("Floor_Number_Plate", new Vector3(cx, HALF + 1.30f, WD - 0.013f), 0.30f, 0.34f, 180f, sign);
+            if (plate) plate.AddComponent<FloorSign>().target = plate.GetComponent<Renderer>();
             r.Box("Floor_Number_Backing", cx - 0.155f, cx + 0.155f,
                   HALF + 1.12f, HALF + 1.48f, WD - 0.011f, WD - 0.003f, p.white);
         }
@@ -475,6 +493,19 @@ namespace Anihome.Dormitory.EditorTools
                 g.transform.localRotation = Quaternion.FromToRotation(Vector3.up, d.normalized);
                 g.transform.localScale = new Vector3(dia, d.magnitude * 0.5f, dia);
                 if (collide) g.AddComponent<BoxCollider>().size = new Vector3(1f, 2f, 1f);
+                return g;
+            }
+
+            /// 눈에 보이지 않는 상자. isTrigger 면 통과 가능한 감지 구역.
+            public GameObject Solid(string n, float x0, float x1, float y0, float y1, float z0, float z1,
+                                    bool isTrigger = false)
+            {
+                var g = new GameObject(n);
+                g.transform.SetParent(root, false);
+                g.transform.localPosition = P((x0 + x1) * 0.5f, (y0 + y1) * 0.5f, (z0 + z1) * 0.5f);
+                var bc = g.AddComponent<BoxCollider>();
+                bc.size = new Vector3(Mathf.Abs(x1 - x0), Mathf.Abs(y1 - y0), Mathf.Abs(z1 - z0));
+                bc.isTrigger = isTrigger;
                 return g;
             }
 
