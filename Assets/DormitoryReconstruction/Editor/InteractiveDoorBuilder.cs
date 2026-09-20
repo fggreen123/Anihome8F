@@ -14,7 +14,7 @@ namespace Anihome.Dormitory.EditorTools
     public static class InteractiveDoorBuilder
     {
         const string DormRoot = "Assets/DormitoryReconstruction";
-        const string MatRoot = DormRoot + "/Materials";
+        static string MatRoot => DormMaterialFolder.Path;
         const string TexRoot = DormRoot + "/Textures";
         const string WashroomFbx = "Assets/WashroomAddition/Models/Washroom_Laundry.fbx";
         const string ContainerName = "Interactive Doors";
@@ -83,6 +83,7 @@ namespace Anihome.Dormitory.EditorTools
 
             bool player = AttachInteractor();
 
+            AssetDatabase.SaveAssets();
             EditorSceneManager_MarkDirty(SceneManager.GetActiveScene());
             Selection.activeGameObject = container;
 

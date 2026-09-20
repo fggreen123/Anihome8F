@@ -146,6 +146,9 @@ namespace Anihome.Dormitory
 
         void ApplySigns()
         {
+            // 방 번호·엘리베이터 층 표시
+            FloorNumberDisplay.SetFloor(currentFloor);
+
             if (signByUpperFloor == null || signByUpperFloor.Length == 0) return;
             int idx = Mathf.Clamp(currentFloor, 0, signByUpperFloor.Length - 1);
             Material m = signByUpperFloor[idx];
@@ -161,8 +164,14 @@ namespace Anihome.Dormitory
             if (body) body.enabled = false;
             player.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
             if (body) body.enabled = true;
-            var cam = player.GetComponentInChildren<Camera>();
-            if (cam) cam.transform.localRotation = Quaternion.identity;
+
+            var walker = player.GetComponent<DormitoryWalkthrough>();
+            if (walker) walker.ResetView();
+            else
+            {
+                var cam = player.GetComponentInChildren<Camera>();
+                if (cam) cam.transform.localRotation = Quaternion.identity;
+            }
         }
 
         void Say(string s)

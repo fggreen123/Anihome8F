@@ -56,7 +56,8 @@ namespace Anihome.Dormitory.EditorTools
 
         static float PitchB(float z) => HALF + (HZ0 - z) * (RISE / GO);
 
-        const string MatRoot = "Assets/DormitoryReconstruction/Materials";
+        // 재질 폴더 이름이 Materials 인지 Map_Materials 인지 프로젝트마다 다르므로 찾아서 쓴다.
+        static string MatRoot => DormMaterialFolder.Path;
         const string TexRoot = "Assets/DormitoryReconstruction/Textures";
         const string ContainerName = "Stairwells";
 

@@ -14,12 +14,13 @@ namespace Anihome.Dormitory.EditorTools
     /// </summary>
     public static class FloorLoopSetup
     {
-        const string MatRoot = "Assets/DormitoryReconstruction/Materials";
+        static string MatRoot => DormMaterialFolder.Path;
         const string LoopName = "GameLoop";
         const string SpawnName = "PlayerSpawn";
         const string StairRoot = "Stairwells";
         const string BlockerName = "UpStairBlocker";
         const string GateName = "DownStairGate";
+        const string DownWallName = "DownStairBlocker";
 
         // 계단실 로컬 좌표 (StairwellBuilder 와 같은 기준)
         const float FW = 1.00f, GAP = 0.60f, XO = 2.60f, LAND = 1.05f;
@@ -68,8 +69,14 @@ namespace Anihome.Dormitory.EditorTools
 
                 ClearChild(m, BlockerName);
                 ClearChild(m, GateName);
+                ClearChild(m, DownWallName);
 
+                // 올라가는 계단 — 아예 못 올라가게
                 MakeBox(m, BlockerName, xs, XA0 - 0.10f, XA1 + 0.06f, 0f, 2.30f, LAND - 0.12f, LAND + 0.16f, false);
+                blockers++;
+
+                // 내려가는 계단 — 걸어서는 못 내려가고, 확인 창으로만 내려간다
+                MakeBox(m, DownWallName, xs, XB0 - 0.06f, XB1 + 0.10f, -1.20f, 2.30f, LAND + 0.10f, LAND + 0.34f, false);
                 blockers++;
 
                 var gate = MakeBox(m, GateName, xs, XB0 - 0.06f, XB1 + 0.10f, 0f, 2.30f, LAND - 0.75f, LAND + 0.12f, true);
@@ -90,6 +97,21 @@ namespace Anihome.Dormitory.EditorTools
                 spawn = new GameObject(SpawnName);
                 Undo.RegisterCreatedObjectUndo(spawn, "Setup Floor Loop");
             }
+            // ---- 걸음걸이 (공포 게임용) --------------------------------
+            Undo.RecordObject(walker, "Setup Floor Loop");
+            walker.moveSpeed = 1.55f;
+            walker.sprintSpeed = 2.95f;
+            walker.acceleration = 9f;
+            walker.headBob = true;
+            walker.stridesPerMeter = 0.70f;
+            walker.bobUp = 0.018f;
+            walker.bobSide = 0.008f;
+            walker.bobRoll = 0.20f;
+            walker.bobSettle = 4.5f;
+            walker.breathe = 0.005f;
+            walker.landDip = 0.05f;
+            EditorUtility.SetDirty(walker);
+
             var cc = walker.GetComponent<CharacterController>();
             float y = cc != null ? cc.height * 0.5f + 0.05f : 0.95f;
             Undo.RecordObject(spawn.transform, "Setup Floor Loop");
@@ -145,6 +167,7 @@ namespace Anihome.Dormitory.EditorTools
                 {
                     ClearChild(m, BlockerName);
                     ClearChild(m, GateName);
+                    ClearChild(m, DownWallName);
                 }
             foreach (string n in new[] { LoopName, SpawnName })
             {

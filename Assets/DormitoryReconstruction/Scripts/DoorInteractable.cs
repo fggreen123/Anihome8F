@@ -6,6 +6,8 @@ namespace Anihome.Dormitory
     /// 한 장의 문짝을 경첩 축 기준으로 여닫는다.
     /// 경첩 축은 이 오브젝트의 로컬 좌표로 지정하므로, 부모를 새로 만들거나
     /// 프리팹 계층을 바꾸지 않아도 모델에 들어 있는 문짝에 그대로 붙일 수 있다.
+    /// 걸쇠·잠김 표시처럼 문에 붙어 있어야 하는 부속은 carried 에 넣으면
+    /// 같은 회전을 그대로 받는다 (계층을 바꾸지 않아도 된다).
     /// </summary>
     [DisallowMultipleComponent]
     public sealed class DoorInteractable : MonoBehaviour
@@ -24,6 +26,10 @@ namespace Anihome.Dormitory
         [Tooltip("잠겨 있으면 상호작용해도 열리지 않는다")]
         public bool locked = false;
 
+        [Header("함께 움직일 부속")]
+        [Tooltip("걸쇠·표시등처럼 문짝에 붙어 있어야 하는 오브젝트")]
+        public Transform[] carried = new Transform[0];
+
         [Header("화면 안내 문구")]
         public string labelKo = "문";
         public string labelEn = "Door";
@@ -37,6 +43,8 @@ namespace Anihome.Dormitory
         Vector3 axisWorld;
         Vector3 closedPos;
         Quaternion closedRot;
+        Vector3[] carriedPos;
+        Quaternion[] carriedRot;
         float current;
         float target;
         bool ready;
@@ -58,6 +66,16 @@ namespace Anihome.Dormitory
             pivotWorld = transform.TransformPoint(hingeAnchor);
             axisWorld = transform.TransformDirection(hingeAxis);
             axisWorld = axisWorld.sqrMagnitude < 1e-8f ? Vector3.up : axisWorld.normalized;
+
+            int n = carried != null ? carried.Length : 0;
+            carriedPos = new Vector3[n];
+            carriedRot = new Quaternion[n];
+            for (int i = 0; i < n; i++)
+            {
+                if (!carried[i]) continue;
+                carriedPos[i] = carried[i].position;
+                carriedRot[i] = carried[i].rotation;
+            }
             ready = true;
         }
 
@@ -88,6 +106,17 @@ namespace Anihome.Dormitory
             Quaternion q = Quaternion.AngleAxis(angle, axisWorld);
             transform.rotation = q * closedRot;
             transform.position = pivotWorld + q * (closedPos - pivotWorld);
+
+            if (carried == null || carriedPos == null) return;
+            int n = Mathf.Min(carried.Length, carriedPos.Length);
+            for (int i = 0; i < n; i++)
+            {
+                Transform t = carried[i];
+                if (!t) continue;
+                t.SetPositionAndRotation(
+                    pivotWorld + q * (carriedPos[i] - pivotWorld),
+                    q * carriedRot[i]);
+            }
         }
 
         void OnDrawGizmosSelected()
