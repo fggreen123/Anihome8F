@@ -54,6 +54,9 @@ namespace Anihome.Dormitory
         float dipVel;
         bool wasGrounded = true;
 
+        /// 플레이어가 가려고 하는 속도 (벽이나 사람에 막혀도 그대로). NPC 를 밀 때 쓴다.
+        public Vector3 DesiredVelocity => planarVelocity;
+
         void Awake()
         {
             body = GetComponent<CharacterController>();

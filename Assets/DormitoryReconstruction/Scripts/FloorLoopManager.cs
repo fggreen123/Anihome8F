@@ -110,6 +110,7 @@ namespace Anihome.Dormitory
                     cleared = true;
                     ApplySigns();
                     Teleport();
+                    CorridorWalker.HideAll();
                     message = null;
                     yield return FadeTo(0f);
                     busy = false;
@@ -136,6 +137,7 @@ namespace Anihome.Dormitory
             ResetDoors();
             ApplySigns();
             Teleport();
+            CorridorWalker.RestartAll();   // 복도 NPC 를 처음부터 다시 걷게
         }
 
         void ResetDoors()
