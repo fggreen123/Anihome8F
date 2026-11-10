@@ -1,0 +1,20 @@
+{
+  "stage": "DONE",
+  "meshes": {
+    "TheGrinner_Body": {
+      "vertices": 34414,
+      "triangles": 66644,
+      "uv_layers": 1,
+      "weighted_vertices": 34414
+    },
+    "TheGrinner_Cleaver": {
+      "vertices": 702,
+      "triangles": 1340,
+      "uv_layers": 1,
+      "weighted_vertices": 702
+    }
+  },
+  "bones": 22,
+  "fbx": "C:\\Users\\top09\\Desktop\\unity game\\Anihome8F\\Assets\\Characters\\TheGrinner\\TheGrinner.fbx",
+  "blend": "C:\\Users\\top09\\Desktop\\unity game\\Anihome8F\\ArtSource\\Characters\\TheGrinner\\TheGrinner.blend"
+}
