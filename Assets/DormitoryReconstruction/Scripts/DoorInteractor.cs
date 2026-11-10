@@ -38,7 +38,6 @@ namespace Anihome.Dormitory
         {
             hovered = null;
             if (!viewCamera) return;
-            if (FloorLoopManager.Instance && FloorLoopManager.Instance.Busy) return;
 
             Transform eye = viewCamera.transform;
             if (Physics.Raycast(eye.position, eye.forward, out RaycastHit hit, reach, layers, QueryTriggerInteraction.Collide))

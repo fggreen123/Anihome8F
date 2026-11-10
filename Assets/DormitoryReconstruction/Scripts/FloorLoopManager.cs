@@ -13,7 +13,7 @@ namespace Anihome.Dormitory
     ///
     /// 층을 넘길 때마다 맵을 초기화하고 표지판 층수를 바꾼 뒤,
     /// 항상 전자레인지 앞 계단 쪽에서 다시 시작한다.
-    /// 프리팹이 등록되면 층마다 정상/이상 복도를 새로 생성한다.
+    /// 이상 현상 자체는 아직 미구현이라, 해당 층이면 오른쪽 위에 표시만 띄운다.
     /// </summary>
     [DisallowMultipleComponent]
     public sealed class FloorLoopManager : MonoBehaviour
@@ -32,14 +32,6 @@ namespace Anihome.Dormitory
         [Tooltip("칸 번호 = 표지판 위쪽에 적히는 층. 2~12층만 쓴다.")]
         public Material[] signByUpperFloor = new Material[13];
 
-        [Header("복도 프리팹")]
-        public CorridorLayout normalCorridorPrefab;
-        [Tooltip("이상 층에서 동일한 확률로 선택할 복도 프리팹들. 빈 항목은 제외한다.")]
-        public CorridorLayout[] anomalyCorridorPrefabs = new CorridorLayout[0];
-        [Tooltip("복도 프리팹을 생성할 기준 위치. 플레이어와 관리자는 이 아래에 넣지 않는다.")]
-        public Transform corridorParent;
-        [SerializeField] CorridorLayout activeCorridor;
-
         [Header("연출")]
         [Min(0f)] public float fadeSeconds = 0.45f;
         [Min(0f)] public float messageSeconds = 2.2f;
@@ -54,11 +46,9 @@ namespace Anihome.Dormitory
         public bool AnomalyActive => anomalyActive;
         public bool Busy => busy;
         public bool Cleared => cleared;
-        public CorridorLayout ActiveCorridor => activeCorridor;
 
         CharacterController body;
         bool busy;
-        bool warnedNoAnomalies;
         float fade;              // 0 = 보임, 1 = 완전 검정
         string message;
         float messageLeft;
@@ -86,20 +76,12 @@ namespace Anihome.Dormitory
         /// 8층부터 새 판 시작.
         public void BeginRun()
         {
-            StopAllCoroutines();
-            busy = true;
             cleared = false;
             loopCount = 0;
             currentFloor = startFloor;
-            fade = 1f;
             SetupLevel();
-            StartCoroutine(RevealLevel());
-        }
-
-        IEnumerator RevealLevel()
-        {
-            yield return FadeTo(0f);
-            busy = false;
+            fade = 1f;
+            StartCoroutine(FadeTo(0f));
         }
 
         public void RequestDescend(StairSide side)
@@ -126,12 +108,9 @@ namespace Anihome.Dormitory
                 {
                     currentFloor = goalFloor;
                     cleared = true;
-                    anomalyActive = false;
-                    if (IsUsableCorridor(normalCorridorPrefab)) LoadCorridor(normalCorridorPrefab);
                     ApplySigns();
                     Teleport();
-                    if (activeCorridor) activeCorridor.HideWalkers();
-                    else CorridorWalker.HideAll();
+                    CorridorWalker.HideAll();
                     message = null;
                     yield return FadeTo(0f);
                     busy = false;
@@ -154,91 +133,11 @@ namespace Anihome.Dormitory
         /// 맵 초기화 + 이상 현상 재추첨 + 표지판 갱신 + 시작 위치로.
         void SetupLevel()
         {
-            if (normalCorridorPrefab)
-            {
-                if (!IsUsableCorridor(normalCorridorPrefab))
-                {
-                    Debug.LogError("[FloorLoop] Normal corridor needs an internal spawn point and must not contain the player or manager.", this);
-                    anomalyActive = false;
-                    return;
-                }
-
-                CorridorLayout prefab = SelectCorridor(out bool isAnomaly);
-                LoadCorridor(prefab);
-                anomalyActive = isAnomaly;
-            }
-            else
-            {
-                // Keep scenes that have not been converted to corridor prefabs working.
-                anomalyActive = Random.value < anomalyChance;
-                ResetDoors();
-            }
+            anomalyActive = Random.value < anomalyChance;
+            ResetDoors();
             ApplySigns();
             Teleport();
-            if (activeCorridor) activeCorridor.RestartWalkers(player);
-            else CorridorWalker.RestartAll();
-        }
-
-        CorridorLayout SelectCorridor(out bool isAnomaly)
-        {
-            isAnomaly = false;
-            int count = 0;
-            if (anomalyCorridorPrefabs != null)
-                foreach (var prefab in anomalyCorridorPrefabs)
-                    if (IsUsableCorridor(prefab)) count++;
-
-            if (count == 0)
-            {
-                if (!warnedNoAnomalies && anomalyChance > 0f)
-                {
-                    warnedNoAnomalies = true;
-                    Debug.LogWarning("[FloorLoop] No valid anomaly corridor prefabs registered; using the normal corridor.", this);
-                }
-                return normalCorridorPrefab;
-            }
-            if (anomalyChance < 1f && Random.value >= Mathf.Clamp01(anomalyChance))
-                return normalCorridorPrefab;
-
-            int chosen = Random.Range(0, count);
-            foreach (var prefab in anomalyCorridorPrefabs)
-            {
-                if (!IsUsableCorridor(prefab)) continue;
-                if (chosen-- != 0) continue;
-                isAnomaly = true;
-                return prefab;
-            }
-            return normalCorridorPrefab;
-        }
-
-        static bool IsUsableCorridor(CorridorLayout corridor)
-        {
-            return corridor && corridor.gameObject.activeSelf && corridor.HasValidSpawn
-                && !corridor.GetComponentInChildren<DormitoryWalkthrough>(true)
-                && !corridor.GetComponentInChildren<FloorLoopManager>(true);
-        }
-
-        void LoadCorridor(CorridorLayout prefab)
-        {
-            CorridorLayout next = Instantiate(prefab, corridorParent, false);
-            next.name = prefab.name;
-            next.transform.localPosition = Vector3.zero;
-            next.transform.localRotation = Quaternion.identity;
-
-            if (activeCorridor)
-            {
-                activeCorridor.gameObject.SetActive(false);
-                Destroy(activeCorridor.gameObject);
-            }
-            activeCorridor = next;
-            spawnPoint = next.spawnPoint;
-            signs = next.CollectSigns();
-        }
-
-        public void SetCorridorPreview(CorridorLayout corridor)
-        {
-            activeCorridor = corridor;
-            spawnPoint = corridor ? corridor.spawnPoint : null;
-            signs = corridor ? corridor.CollectSigns() : new FloorSign[0];
+            CorridorWalker.RestartAll();   // 복도 NPC 를 처음부터 다시 걷게
         }
 
         void ResetDoors()
@@ -343,7 +242,7 @@ namespace Anihome.Dormitory
             GUI.Label(new Rect(floorRect.x + 1, floorRect.y + 1, floorRect.width, floorRect.height), f, shade);
             GUI.Label(floorRect, f, big);
 
-            // 이상 현상 표시 (오른쪽 위)
+            // 이상 현상 표시 (오른쪽 위) — 아직 미구현이라 글자만
             if (anomalyActive && !cleared)
             {
                 string a = uiFont ? "이상 현상 층" : "ANOMALY FLOOR";

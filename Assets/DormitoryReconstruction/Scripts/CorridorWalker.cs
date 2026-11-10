@@ -113,8 +113,6 @@ namespace Anihome.Dormitory
             }
         }
 
-        public void Hide() => Finish();
-
         void Awake()
         {
             body = GetComponent<CapsuleCollider>();
@@ -125,11 +123,7 @@ namespace Anihome.Dormitory
         void OnEnable() { if (!All.Contains(this)) All.Add(this); }
         void OnDisable() => All.Remove(this);
 
-        void Start()
-        {
-            if (FloorLoopManager.Instance && FloorLoopManager.Instance.Cleared) Finish();
-            else if (finished) Restart();
-        }
+        void Start() => Restart();
 
         // ------------------------------------------------------------ 시작 / 끝
 
