@@ -79,6 +79,8 @@ namespace Anihome.Dormitory
             dipVel = 0f;
             pitch = 0f;
             planarVelocity = Vector3.zero;
+            verticalSpeed = -2f;
+            wasGrounded = true;
             if (viewCamera && camHomeCached)
             {
                 viewCamera.transform.localPosition = camHome;
@@ -131,6 +133,13 @@ namespace Anihome.Dormitory
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+            }
+
+            var loop = FloorLoopManager.Instance;
+            if (loop && loop.Busy)
+            {
+                planarVelocity = Vector3.zero;
+                return;
             }
 
             if (Cursor.lockState == CursorLockMode.Locked)
