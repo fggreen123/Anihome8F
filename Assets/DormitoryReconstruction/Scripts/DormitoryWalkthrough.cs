@@ -23,6 +23,10 @@ namespace Anihome.Dormitory
         [Tooltip("멈추고 출발할 때 붙었다 떨어지는 느낌. 클수록 즉각적")]
         [Min(0.5f)] public float acceleration = 9f;
 
+        [Header("스태미나")]
+        [SerializeField, Min(0.1f)] float sprintDuration = 2.5f;
+        [SerializeField, Min(0.1f)] float staminaRecoveryDuration = 6f / 0.85f;
+
         [Header("걸음 흔들림 (공포 게임용 — 작게)")]
         public bool headBob = true;
         [Tooltip("1 m 를 걸을 때의 걸음 주기 수 (한 주기 = 두 걸음)")]
@@ -53,6 +57,12 @@ namespace Anihome.Dormitory
         float dip;
         float dipVel;
         bool wasGrounded = true;
+        float stamina = 1f;
+        float staminaBarOpacity;
+        bool sprintExhausted;
+        const float SprintRecoveryThreshold = 0.5f;
+        const float StaminaEpsilon = 0.00001f;
+        const float StaminaBarFadeSeconds = 0.25f;
 
         /// 플레이어가 가려고 하는 속도 (벽이나 사람에 막혀도 그대로). NPC 를 밀 때 쓴다.
         public Vector3 DesiredVelocity => planarVelocity;
@@ -140,8 +150,9 @@ namespace Anihome.Dormitory
             }
 
             // 목표 속도로 부드럽게 붙인다 — 뚝 끊기지 않게
+            bool sprinting = sprint && move.sqrMagnitude > 0f && !sprintExhausted;
             Vector3 wanted = transform.right * move.x + transform.forward * move.y;
-            wanted = Vector3.ClampMagnitude(wanted, 1f) * (sprint ? sprintSpeed : moveSpeed);
+            wanted = Vector3.ClampMagnitude(wanted, 1f) * (sprinting ? sprintSpeed : moveSpeed);
             planarVelocity = Vector3.MoveTowards(planarVelocity, wanted,
                                                  acceleration * Time.deltaTime * Mathf.Max(1f, moveSpeed));
 
@@ -161,7 +172,68 @@ namespace Anihome.Dormitory
                 dip += Mathf.Min(landDip, landDip * (-fallSpeed / 7f));
             wasGrounded = groundedNow;
 
-            ApplyView(new Vector3(after.x - before.x, 0f, after.z - before.z).magnitude, groundedNow);
+            float traveled = new Vector3(after.x - before.x, 0f, after.z - before.z).magnitude;
+            UpdateStamina(sprinting && traveled > 0.0001f, Time.deltaTime);
+            staminaBarOpacity = stamina < 1f
+                ? 1f
+                : Mathf.MoveTowards(staminaBarOpacity, 0f, Time.deltaTime / StaminaBarFadeSeconds);
+            ApplyView(traveled, groundedNow);
+        }
+
+        void UpdateStamina(bool sprinting, float deltaTime)
+        {
+            if (sprinting)
+            {
+                stamina = Mathf.Max(0f, stamina - deltaTime / Mathf.Max(0.1f, sprintDuration));
+                if (stamina <= StaminaEpsilon)
+                {
+                    stamina = 0f;
+                    sprintExhausted = true;
+                    planarVelocity = Vector3.ClampMagnitude(planarVelocity, moveSpeed);
+                }
+                return;
+            }
+
+            stamina = Mathf.Min(1f, stamina + deltaTime / Mathf.Max(0.1f, staminaRecoveryDuration));
+            if (stamina >= 1f - StaminaEpsilon)
+                stamina = 1f;
+            if (sprintExhausted && stamina >= SprintRecoveryThreshold - StaminaEpsilon)
+            {
+                stamina = Mathf.Max(stamina, SprintRecoveryThreshold);
+                sprintExhausted = false;
+            }
+        }
+
+        void OnGUI()
+        {
+            if (Event.current.type != EventType.Repaint || staminaBarOpacity <= 0f || !viewCamera) return;
+
+            Rect safe = Screen.safeArea;
+            float scale = Mathf.Clamp(Mathf.Min(safe.width / 1280f, safe.height / 720f), 0.65f, 1.5f);
+            float margin = 24f * scale;
+            float width = 180f * scale;
+            float height = 12f * scale;
+            float inset = 2f * scale;
+            var bar = new Rect(safe.xMin + margin, Screen.height - safe.yMin - margin - height, width, height);
+            var track = new Rect(bar.x + inset, bar.y + inset, width - 2f * inset, height - 2f * inset);
+            Color frame = sprintExhausted ? new Color(0.62f, 0.15f, 0.13f, 0.96f) : new Color(0.08f, 0.09f, 0.10f, 0.96f);
+            Color empty = sprintExhausted ? new Color(0.24f, 0.045f, 0.04f, 0.95f) : new Color(0.18f, 0.19f, 0.20f, 0.95f);
+            Color fill = sprintExhausted ? new Color(0.94f, 0.28f, 0.23f) : new Color(0.89f, 0.93f, 0.88f);
+            frame.a *= staminaBarOpacity;
+            empty.a *= staminaBarOpacity;
+            fill.a *= staminaBarOpacity;
+
+            int previousDepth = GUI.depth;
+            Color previousColor = GUI.color;
+            GUI.depth = 10;
+            GUI.color = Color.white;
+            GUI.DrawTexture(bar, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0f, frame, 0f, inset);
+            GUI.DrawTexture(track, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0f, empty, 0f, scale);
+            track.width *= stamina;
+            if (track.width > 0f)
+                GUI.DrawTexture(track, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0f, fill, 0f, Mathf.Min(scale, track.width * 0.5f));
+            GUI.color = previousColor;
+            GUI.depth = previousDepth;
         }
 
         void ApplyView(float traveled, bool grounded)
