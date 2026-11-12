@@ -254,6 +254,7 @@ namespace Anihome.Dormitory.EditorTools
             door.swingSpeed = 185f;
             door.labelKo = p.labelKo;
             door.labelEn = p.labelEn;
+            door.showDoorBadge = true;
         }
 
         static void BuildPull(Transform leaf, Material chrome, float x, float yMid, float len, float z, float faceZ, string suffix)
@@ -326,6 +327,7 @@ namespace Anihome.Dormitory.EditorTools
             door.swingSpeed = 170f;
             door.labelKo = labelKo;
             door.labelEn = labelEn;
+            door.showDoorBadge = true;
             EditorUtility.SetDirty(go);
             return true;
         }

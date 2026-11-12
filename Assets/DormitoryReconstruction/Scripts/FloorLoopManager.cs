@@ -84,15 +84,18 @@ namespace Anihome.Dormitory
             StartCoroutine(FadeTo(0f));
         }
 
-        public void RequestDescend(StairSide side)
+        public bool RequestDescend(StairSide side, float feedbackSeconds = 0f)
         {
-            if (busy || cleared) return;
-            StartCoroutine(DescendRoutine(side));
+            if (busy || cleared) return false;
+            StartCoroutine(DescendRoutine(side, feedbackSeconds));
+            return true;
         }
 
-        IEnumerator DescendRoutine(StairSide side)
+        IEnumerator DescendRoutine(StairSide side, float feedbackSeconds)
         {
             busy = true;
+            if (feedbackSeconds > 0f)
+                yield return new WaitForSecondsRealtime(feedbackSeconds);
             yield return FadeTo(1f);
 
             bool correct = anomalyActive

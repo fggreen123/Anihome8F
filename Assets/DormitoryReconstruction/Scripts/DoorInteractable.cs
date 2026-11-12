@@ -33,6 +33,8 @@ namespace Anihome.Dormitory
         [Header("화면 안내 문구")]
         public string labelKo = "문";
         public string labelEn = "Door";
+        [Tooltip("문 위에 원형 상호작용 안내를 표시합니다.")]
+        public bool showDoorBadge;
 
         [Header("소리 (선택)")]
         public AudioSource audioSource;

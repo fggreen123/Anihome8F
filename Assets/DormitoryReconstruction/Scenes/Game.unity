@@ -93416,6 +93416,7 @@ MonoBehaviour:
   - {fileID: 1756385320}
   labelKo: "\uB458\uC9F8 \uCE78 \uBB38"
   labelEn: Toilet Stall 2
+  showDoorBadge: 1
   audioSource: {fileID: 0}
   openClip: {fileID: 0}
   closeClip: {fileID: 0}
@@ -111974,6 +111975,7 @@ MonoBehaviour:
   - {fileID: 1756385322}
   labelKo: "\uBCC0\uAE30\uCE78 \uBB38"
   labelEn: Toilet Stall
+  showDoorBadge: 1
   audioSource: {fileID: 0}
   openClip: {fileID: 0}
   closeClip: {fileID: 0}
@@ -113788,6 +113790,7 @@ MonoBehaviour:
   carried: []
   labelKo: "\uD654\uC7A5\uC2E4 \uBB38"
   labelEn: Restroom Door
+  showDoorBadge: 1
   audioSource: {fileID: 0}
   openClip: {fileID: 0}
   closeClip: {fileID: 0}
@@ -154509,6 +154512,7 @@ MonoBehaviour:
   carried: []
   labelKo: "\uB3C5\uC11C\uC2E4 \uBB38"
   labelEn: Reading Room Door
+  showDoorBadge: 1
   audioSource: {fileID: 0}
   openClip: {fileID: 0}
   closeClip: {fileID: 0}

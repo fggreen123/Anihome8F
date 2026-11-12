@@ -57,6 +57,12 @@ namespace Anihome.Dormitory.EditorTools
                 return;
             }
 
+            if (!walker.GetComponent<DoorInteractor>())
+            {
+                var interactor = Undo.AddComponent<DoorInteractor>(walker.gameObject);
+                interactor.viewCamera = walker.viewCamera;
+            }
+
             // ---- 계단 확인 구역 / 차단벽 -------------------------------
             int gates = 0, blockers = 0;
             foreach (Transform m in stairs.transform)

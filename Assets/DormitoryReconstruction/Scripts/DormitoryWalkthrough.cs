@@ -61,6 +61,7 @@ namespace Anihome.Dormitory
         float staminaBarOpacity;
         bool sprintExhausted;
         const float SprintRecoveryThreshold = 0.5f;
+        const float StandingRecoveryMultiplier = 1.25f;
         const float StaminaEpsilon = 0.00001f;
         const float StaminaBarFadeSeconds = 0.25f;
 
@@ -173,14 +174,15 @@ namespace Anihome.Dormitory
             wasGrounded = groundedNow;
 
             float traveled = new Vector3(after.x - before.x, 0f, after.z - before.z).magnitude;
-            UpdateStamina(sprinting && traveled > 0.0001f, Time.deltaTime);
+            bool moving = traveled > 0.0001f;
+            UpdateStamina(sprinting && moving, groundedNow && !moving, Time.deltaTime);
             staminaBarOpacity = stamina < 1f
                 ? 1f
                 : Mathf.MoveTowards(staminaBarOpacity, 0f, Time.deltaTime / StaminaBarFadeSeconds);
             ApplyView(traveled, groundedNow);
         }
 
-        void UpdateStamina(bool sprinting, float deltaTime)
+        void UpdateStamina(bool sprinting, bool standingStill, float deltaTime)
         {
             if (sprinting)
             {
@@ -194,7 +196,8 @@ namespace Anihome.Dormitory
                 return;
             }
 
-            stamina = Mathf.Min(1f, stamina + deltaTime / Mathf.Max(0.1f, staminaRecoveryDuration));
+            float recoveryMultiplier = standingStill ? StandingRecoveryMultiplier : 1f;
+            stamina = Mathf.Min(1f, stamina + deltaTime * recoveryMultiplier / Mathf.Max(0.1f, staminaRecoveryDuration));
             if (stamina >= 1f - StaminaEpsilon)
                 stamina = 1f;
             if (sprintExhausted && stamina >= SprintRecoveryThreshold - StaminaEpsilon)
