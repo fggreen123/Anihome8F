@@ -3756,6 +3756,7 @@ GameObject:
   - component: {fileID: 25358408}
   - component: {fileID: 25358410}
   - component: {fileID: 25358409}
+  - component: {fileID: 25358411}
   m_Layer: 0
   m_Name: Rail_Return_Floor_Link (1)
   m_TagString: Untagged
@@ -3834,6 +3835,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25358407}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &25358411
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25358407}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &25768719
 GameObject:
@@ -4699,6 +4722,7 @@ GameObject:
   - component: {fileID: 31929619}
   - component: {fileID: 31929621}
   - component: {fileID: 31929620}
+  - component: {fileID: 31929622}
   m_Layer: 0
   m_Name: Extinguisher cylinder.001
   m_TagString: Untagged
@@ -4777,6 +4801,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31929618}
+  m_Mesh: {fileID: 3112399850695110578, guid: d88cc87dfc9cd6442a3fce84ec51a9c2, type: 3}
+--- !u!64 &31929622
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31929618}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 3112399850695110578, guid: d88cc87dfc9cd6442a3fce84ec51a9c2, type: 3}
 --- !u!1 &33235556
 GameObject:
@@ -4879,6 +4925,7 @@ GameObject:
   - component: {fileID: 33730431}
   - component: {fileID: 33730433}
   - component: {fileID: 33730432}
+  - component: {fileID: 33730434}
   m_Layer: 0
   m_Name: Rail_Return_Floor_Link (2)
   m_TagString: Untagged
@@ -4957,6 +5004,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33730430}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &33730434
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33730430}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &34288349
 GameObject:
@@ -29083,6 +29152,7 @@ GameObject:
   - component: {fileID: 204744033}
   - component: {fileID: 204744035}
   - component: {fileID: 204744034}
+  - component: {fileID: 204744036}
   m_Layer: 0
   m_Name: Rail_Return_Floor_Link (5)
   m_TagString: Untagged
@@ -29161,6 +29231,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204744032}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &204744036
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204744032}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &205329372
 GameObject:
@@ -55682,6 +55774,7 @@ GameObject:
   - component: {fileID: 384615612}
   - component: {fileID: 384615614}
   - component: {fileID: 384615613}
+  - component: {fileID: 384615615}
   m_Layer: 0
   m_Name: Rail_Return_Floor_Link (4)
   m_TagString: Untagged
@@ -55760,6 +55853,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384615611}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &384615615
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384615611}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &388857369
 GameObject:
@@ -93409,6 +93524,8 @@ MonoBehaviour:
   hingeAxis: {x: 0, y: -0.00000023841858, z: 1}
   openAngle: -80
   swingSpeed: 170
+  openingSmoothTime: 0.16
+  closingSmoothTime: 0.19
   startOpen: 0
   locked: 0
   carried:
@@ -111968,6 +112085,8 @@ MonoBehaviour:
   hingeAxis: {x: 0, y: -0.00000023841858, z: 1}
   openAngle: -70
   swingSpeed: 170
+  openingSmoothTime: 0.16
+  closingSmoothTime: 0.19
   startOpen: 0
   locked: 0
   carried:
@@ -113785,6 +113904,8 @@ MonoBehaviour:
   hingeAxis: {x: 0, y: 1, z: 0}
   openAngle: 90
   swingSpeed: 185
+  openingSmoothTime: 0.16
+  closingSmoothTime: 0.19
   startOpen: 0
   locked: 0
   carried: []
@@ -120566,6 +120687,7 @@ GameObject:
   - component: {fileID: 815094528}
   - component: {fileID: 815094530}
   - component: {fileID: 815094529}
+  - component: {fileID: 815094531}
   m_Layer: 0
   m_Name: Rail_Return_Floor_Link (3)
   m_TagString: Untagged
@@ -120644,6 +120766,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815094527}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &815094531
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815094527}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &815832970
 GameObject:
@@ -152782,6 +152926,8 @@ GameObject:
   - component: {fileID: 1051685908}
   - component: {fileID: 1051685910}
   - component: {fileID: 1051685909}
+  - component: {fileID: 1051685912}
+  - component: {fileID: 1051685911}
   m_Layer: 0
   m_Name: Window_FullHeight_Glass
   m_TagString: Untagged
@@ -152860,6 +153006,50 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051685907}
+  m_Mesh: {fileID: 7923324689320667867, guid: d88cc87dfc9cd6442a3fce84ec51a9c2, type: 3}
+--- !u!64 &1051685911
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051685907}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7923324689320667867, guid: d88cc87dfc9cd6442a3fce84ec51a9c2, type: 3}
+--- !u!64 &1051685912
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051685907}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 7923324689320667867, guid: d88cc87dfc9cd6442a3fce84ec51a9c2, type: 3}
 --- !u!1 &1051732236
 GameObject:
@@ -154507,6 +154697,8 @@ MonoBehaviour:
   hingeAxis: {x: 0, y: 1, z: 0}
   openAngle: 90
   swingSpeed: 185
+  openingSmoothTime: 0.16
+  closingSmoothTime: 0.19
   startOpen: 0
   locked: 0
   carried: []
@@ -178291,6 +178483,8 @@ MonoBehaviour:
   sprintSpeed: 2.95
   mouseSensitivity: 0.1
   acceleration: 9
+  sprintDuration: 2.5
+  staminaRecoveryDuration: 7.058823
   headBob: 1
   stridesPerMeter: 0.7
   bobUp: 0.018
@@ -180047,6 +180241,7 @@ GameObject:
   - component: {fileID: 1239916837}
   - component: {fileID: 1239916839}
   - component: {fileID: 1239916838}
+  - component: {fileID: 1239916840}
   m_Layer: 0
   m_Name: Rail_Return_Floor_Link (6)
   m_TagString: Untagged
@@ -180125,6 +180320,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1239916836}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &1239916840
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239916836}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1240260552
 GameObject:
@@ -223005,6 +223222,7 @@ GameObject:
   - component: {fileID: 1545819511}
   - component: {fileID: 1545819513}
   - component: {fileID: 1545819512}
+  - component: {fileID: 1545819514}
   m_Layer: 0
   m_Name: Extinguisher cylinder
   m_TagString: Untagged
@@ -223083,6 +223301,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1545819510}
+  m_Mesh: {fileID: -4102390770258931629, guid: d88cc87dfc9cd6442a3fce84ec51a9c2, type: 3}
+--- !u!64 &1545819514
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545819510}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: -4102390770258931629, guid: d88cc87dfc9cd6442a3fce84ec51a9c2, type: 3}
 --- !u!1 &1546759039
 GameObject:
