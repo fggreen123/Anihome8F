@@ -59,11 +59,14 @@ namespace Anihome.Dormitory
         bool wasGrounded = true;
         float stamina = 1f;
         float staminaBarOpacity;
+        float staminaBarShakeRemaining;
         bool sprintExhausted;
         const float SprintRecoveryThreshold = 0.5f;
         const float StandingRecoveryMultiplier = 1.25f;
         const float StaminaEpsilon = 0.00001f;
         const float StaminaBarFadeSeconds = 0.25f;
+        const float StaminaBarShakeSeconds = 0.36f;
+        const float StaminaBarShakePixels = 13f;
 
         /// 플레이어가 가려고 하는 속도 (벽이나 사람에 막혀도 그대로). NPC 를 밀 때 쓴다.
         public Vector3 DesiredVelocity => planarVelocity;
@@ -100,6 +103,7 @@ namespace Anihome.Dormitory
         void Update()
         {
             if (!viewCamera || !body) return;
+            staminaBarShakeRemaining = Mathf.Max(0f, staminaBarShakeRemaining - Time.unscaledDeltaTime);
             if (!camHomeCached)
             {
                 camHome = viewCamera.transform.localPosition;
@@ -109,6 +113,7 @@ namespace Anihome.Dormitory
             bool capture = false;
             bool release = false;
             bool sprint = false;
+            bool sprintPressed = false;
             Vector2 move = Vector2.zero;
             Vector2 mouse = Vector2.zero;
 
@@ -124,6 +129,7 @@ namespace Anihome.Dormitory
             {
                 release = keyboard.escapeKey.wasPressedThisFrame;
                 sprint = keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed;
+                sprintPressed = keyboard.leftShiftKey.wasPressedThisFrame || keyboard.rightShiftKey.wasPressedThisFrame;
                 move.x = (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed ? 1f : 0f)
                        - (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed ? 1f : 0f);
                 move.y = (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed ? 1f : 0f)
@@ -132,7 +138,8 @@ namespace Anihome.Dormitory
 #elif ENABLE_LEGACY_INPUT_MANAGER
             capture = Input.GetMouseButtonDown(0);
             release = Input.GetKeyDown(KeyCode.Escape);
-            sprint = Input.GetKey(KeyCode.LeftShift);
+            sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+            sprintPressed = Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift);
             move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             mouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * 10f;
 #endif
@@ -149,6 +156,9 @@ namespace Anihome.Dormitory
                 transform.Rotate(Vector3.up, mouse.x * mouseSensitivity, Space.World);
                 pitch = Mathf.Clamp(pitch - mouse.y * mouseSensitivity, -85f, 85f);
             }
+
+            if (sprintExhausted && sprintPressed)
+                staminaBarShakeRemaining = StaminaBarShakeSeconds;
 
             // 목표 속도로 부드럽게 붙인다 — 뚝 끊기지 않게
             bool sprinting = sprint && move.sqrMagnitude > 0f && !sprintExhausted;
@@ -191,6 +201,7 @@ namespace Anihome.Dormitory
                 {
                     stamina = 0f;
                     sprintExhausted = true;
+                    staminaBarShakeRemaining = StaminaBarShakeSeconds;
                     planarVelocity = Vector3.ClampMagnitude(planarVelocity, moveSpeed);
                 }
                 return;
@@ -207,6 +218,13 @@ namespace Anihome.Dormitory
             }
         }
 
+        float GetStaminaBarShakeOffset()
+        {
+            float remaining = staminaBarShakeRemaining / StaminaBarShakeSeconds;
+            float phase = (1f - remaining) * 4f * Mathf.PI;
+            return Mathf.Sin(phase) * remaining * remaining * StaminaBarShakePixels;
+        }
+
         void OnGUI()
         {
             if (Event.current.type != EventType.Repaint || staminaBarOpacity <= 0f || !viewCamera) return;
@@ -217,7 +235,8 @@ namespace Anihome.Dormitory
             float width = 180f * scale;
             float height = 12f * scale;
             float inset = 2f * scale;
-            var bar = new Rect(safe.xMin + margin, Screen.height - safe.yMin - margin - height, width, height);
+            float shakeOffset = GetStaminaBarShakeOffset() * scale;
+            var bar = new Rect(safe.xMin + margin + shakeOffset, Screen.height - safe.yMin - margin - height, width, height);
             var track = new Rect(bar.x + inset, bar.y + inset, width - 2f * inset, height - 2f * inset);
             Color frame = sprintExhausted ? new Color(0.62f, 0.15f, 0.13f, 0.96f) : new Color(0.08f, 0.09f, 0.10f, 0.96f);
             Color empty = sprintExhausted ? new Color(0.24f, 0.045f, 0.04f, 0.95f) : new Color(0.18f, 0.19f, 0.20f, 0.95f);
