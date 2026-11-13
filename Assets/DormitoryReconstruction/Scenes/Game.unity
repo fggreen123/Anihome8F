@@ -93418,8 +93418,8 @@ MonoBehaviour:
   labelEn: Toilet Stall 2
   showDoorBadge: 1
   audioSource: {fileID: 0}
-  openClip: {fileID: 0}
-  closeClip: {fileID: 0}
+  openClip: {fileID: 8300000, guid: 8499024e613dfb64e86872cf5c5ababd, type: 3}
+  closeClip: {fileID: 8300000, guid: e4e5cca8156fff140927e548e3462685, type: 3}
 --- !u!1 &642398324
 GameObject:
   m_ObjectHideFlags: 0
@@ -111977,8 +111977,8 @@ MonoBehaviour:
   labelEn: Toilet Stall
   showDoorBadge: 1
   audioSource: {fileID: 0}
-  openClip: {fileID: 0}
-  closeClip: {fileID: 0}
+  openClip: {fileID: 8300000, guid: 8499024e613dfb64e86872cf5c5ababd, type: 3}
+  closeClip: {fileID: 8300000, guid: e4e5cca8156fff140927e548e3462685, type: 3}
 --- !u!1 &754430384
 GameObject:
   m_ObjectHideFlags: 0
@@ -113792,8 +113792,8 @@ MonoBehaviour:
   labelEn: Restroom Door
   showDoorBadge: 1
   audioSource: {fileID: 0}
-  openClip: {fileID: 0}
-  closeClip: {fileID: 0}
+  openClip: {fileID: 8300000, guid: 8499024e613dfb64e86872cf5c5ababd, type: 3}
+  closeClip: {fileID: 8300000, guid: e4e5cca8156fff140927e548e3462685, type: 3}
 --- !u!65 &764005144
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -154514,8 +154514,8 @@ MonoBehaviour:
   labelEn: Reading Room Door
   showDoorBadge: 1
   audioSource: {fileID: 0}
-  openClip: {fileID: 0}
-  closeClip: {fileID: 0}
+  openClip: {fileID: 8300000, guid: 8499024e613dfb64e86872cf5c5ababd, type: 3}
+  closeClip: {fileID: 8300000, guid: e4e5cca8156fff140927e548e3462685, type: 3}
 --- !u!65 &1062457650
 BoxCollider:
   m_ObjectHideFlags: 0

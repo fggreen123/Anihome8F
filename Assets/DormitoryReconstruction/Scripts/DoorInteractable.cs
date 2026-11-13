@@ -21,7 +21,10 @@ namespace Anihome.Dormitory
         [Header("동작")]
         [Tooltip("열렸을 때의 각도(도). 부호가 회전 방향을 정한다")]
         public float openAngle = 90f;
+        [Tooltip("문을 열 때의 최대 회전 속도 (도/초)")]
         [Min(10f)] public float swingSpeed = 190f;
+        [SerializeField, Min(0.01f)] float openingSmoothTime = 0.16f;
+        [SerializeField, Min(0.01f)] float closingSmoothTime = 0.19f;
         public bool startOpen = false;
         [Tooltip("잠겨 있으면 상호작용해도 열리지 않는다")]
         public bool locked = false;
@@ -49,16 +52,32 @@ namespace Anihome.Dormitory
         Quaternion[] carriedRot;
         float current;
         float target;
+        float angularVelocity;
         bool ready;
 
+        const float ClosingSpeedMultiplier = 0.8f;
+        const float SettleAngle = 0.08f;
+        const float SettleSpeed = 1f;
+
         public bool IsOpen => !Mathf.Approximately(target, 0f);
-        public bool IsMoving => !Mathf.Approximately(current, target);
+        public bool IsMoving => current != target || angularVelocity != 0f;
 
         void Awake()
         {
             CacheClosedPose();
             current = target = startOpen ? openAngle : 0f;
             Apply(current);
+
+            if (!audioSource && (openClip || closeClip))
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource.playOnAwake = false;
+                audioSource.spatialBlend = 1f;
+                audioSource.dopplerLevel = 0f;
+                audioSource.minDistance = 1.5f;
+                audioSource.maxDistance = 12f;
+                audioSource.rolloffMode = AudioRolloffMode.Linear;
+            }
         }
 
         void CacheClosedPose()
@@ -83,8 +102,18 @@ namespace Anihome.Dormitory
 
         void Update()
         {
-            if (!ready || Mathf.Approximately(current, target)) return;
-            current = Mathf.MoveTowards(current, target, swingSpeed * Time.deltaTime);
+            float deltaTime = Time.deltaTime;
+            if (!ready || !IsMoving || deltaTime <= 0f) return;
+
+            float smoothTime = IsOpen ? openingSmoothTime : closingSmoothTime;
+            float maxSpeed = Mathf.Max(10f, swingSpeed) * (IsOpen ? 1f : ClosingSpeedMultiplier);
+            current = Mathf.SmoothDamp(current, target, ref angularVelocity, smoothTime, maxSpeed, deltaTime);
+
+            if (Mathf.Abs(current - target) <= SettleAngle && Mathf.Abs(angularVelocity) <= SettleSpeed)
+            {
+                current = target;
+                angularVelocity = 0f;
+            }
             Apply(current);
         }
 
@@ -95,11 +124,16 @@ namespace Anihome.Dormitory
             if (locked) return;
             float next = open ? openAngle : 0f;
             if (Mathf.Approximately(next, target)) return;
+            // Keep the hinge momentum when the player changes direction mid-swing.
             target = next;
             if (audioSource)
             {
                 AudioClip clip = open ? openClip : closeClip;
-                if (clip) audioSource.PlayOneShot(clip);
+                if (clip)
+                {
+                    audioSource.clip = clip;
+                    audioSource.Play();
+                }
             }
         }
 

@@ -357,6 +357,7 @@ namespace Anihome.Dormitory.EditorTools
             d.swingSpeed = 170f;
             d.labelKo = "변기칸 문";
             d.labelEn = "Toilet Stall";
+            InteractiveDoorBuilder.AssignDoorSounds(d);
             EditorUtility.SetDirty(t.gameObject);
             Debug.Log($"[Signage] '{t.name}' 에 여닫이 기능이 없어서 새로 붙였습니다.", t.gameObject);
             return d;

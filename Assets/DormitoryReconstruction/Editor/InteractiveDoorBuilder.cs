@@ -255,6 +255,13 @@ namespace Anihome.Dormitory.EditorTools
             door.labelKo = p.labelKo;
             door.labelEn = p.labelEn;
             door.showDoorBadge = true;
+            AssignDoorSounds(door);
+        }
+
+        internal static void AssignDoorSounds(DoorInteractable door)
+        {
+            door.openClip = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Sounds/DoorOpening.mp3");
+            door.closeClip = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Sounds/DoorClosing.mp3");
         }
 
         static void BuildPull(Transform leaf, Material chrome, float x, float yMid, float len, float z, float faceZ, string suffix)
@@ -328,6 +335,7 @@ namespace Anihome.Dormitory.EditorTools
             door.labelKo = labelKo;
             door.labelEn = labelEn;
             door.showDoorBadge = true;
+            AssignDoorSounds(door);
             EditorUtility.SetDirty(go);
             return true;
         }
