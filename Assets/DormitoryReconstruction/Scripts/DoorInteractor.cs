@@ -35,6 +35,8 @@ namespace Anihome.Dormitory
         const float BadgeFadeInSeconds = 0.16f;
         const float BadgeFadeOutSeconds = 0.24f;
         const float BadgePressSeconds = 0.24f;
+        const float DoorReachMultiplier = 0.60f;
+        const float StairBadgeDrop = 22f;
         static readonly Color BadgeRim = new Color(0.78f, 0.67f, 0.46f, 0.98f);
         static readonly Color BadgeSurface = new Color(0.07f, 0.08f, 0.08f, 0.97f);
         static readonly Color CaptionSurface = new Color(0.06f, 0.07f, 0.07f, 0.9f);
@@ -54,9 +56,12 @@ namespace Anihome.Dormitory
             {
                 Transform eye = viewCamera.transform;
                 var sight = new Ray(eye.position, eye.forward);
+                DoorInteractable door = null;
                 if (Physics.Raycast(sight, out hit, reach, layers, QueryTriggerInteraction.Collide))
-                    hovered = hit.collider.GetComponentInParent<DoorInteractable>();
-                if (!hovered)
+                    door = hit.collider.GetComponentInParent<DoorInteractable>();
+                if (door && hit.distance <= reach * DoorReachMultiplier)
+                    hovered = door;
+                if (!door)
                     stair = StairGate.FindFocused(transform, sight, hit, layers);
             }
             Component focused = stair;
@@ -198,12 +203,13 @@ namespace Anihome.Dormitory
             Vector3 point = viewCamera.WorldToScreenPoint(badgeTarget.transform.TransformPoint(badgeLocalAnchor));
             if (point.z <= viewCamera.nearClipPlane) return false;
 
-            float scale = Mathf.Clamp(Screen.height / 720f, 0.8f, 1.5f);
-            scale *= BadgePressScale(BadgePressSeconds - badgePressRemaining);
+            float screenScale = Mathf.Clamp(Screen.height / 720f, 0.8f, 1.5f);
+            float scale = screenScale * BadgePressScale(BadgePressSeconds - badgePressRemaining);
             float radius = 24f * scale;
             float captionWidth = 102f * scale;
             float captionHeight = 27f * scale;
             float centerY = Screen.height - point.y;
+            if (badgeTarget is StairGate) centerY += StairBadgeDrop * screenScale;
             var circle = new Rect(point.x - radius, centerY - radius, radius * 2f, radius * 2f);
             var caption = new Rect(point.x - captionWidth * 0.5f, circle.yMax + 7f * scale, captionWidth, captionHeight);
             if (caption.xMax < 0f || caption.xMin > Screen.width || caption.yMax < 0f || circle.yMin > Screen.height)

@@ -14,9 +14,9 @@ namespace Anihome.Dormitory
         [SerializeField] Material[] lampMaterials;
 
         const string FireAlarmLight = "Fire_Alarm_Light";
-        const float BlackoutEnvironmentBrightness = 0.12f;
-        const float NearSurfaceLightRange = 1.5f;
-        const float NearSurfaceLightIntensity = 0.065f;
+        const float BlackoutEnvironmentBrightness = 0.20f;
+        const float NearSurfaceLightRange = 1.35f;
+        const float NearSurfaceLightIntensity = 0.055f;
         static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
         readonly List<(Light light, float intensity)> lights = new List<(Light, float)>();
         readonly List<(Light light, float intensity)> fillLights = new List<(Light, float)>();
