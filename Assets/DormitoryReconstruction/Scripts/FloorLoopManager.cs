@@ -13,7 +13,6 @@ namespace Anihome.Dormitory
     ///
     /// 층을 넘길 때마다 맵을 초기화하고 표지판 층수를 바꾼 뒤,
     /// 항상 전자레인지 앞 계단 쪽에서 다시 시작한다.
-    /// 이상 현상 자체는 아직 미구현이라, 해당 층이면 오른쪽 위에 표시만 띄운다.
     /// </summary>
     [DisallowMultipleComponent]
     public sealed class FloorLoopManager : MonoBehaviour
@@ -48,6 +47,7 @@ namespace Anihome.Dormitory
         public bool Cleared => cleared;
 
         CharacterController body;
+        CorridorBlackoutAnomaly blackout;
         bool busy;
         float fade;              // 0 = 보임, 1 = 완전 검정
         string message;
@@ -61,6 +61,7 @@ namespace Anihome.Dormitory
         void Awake()
         {
             Instance = this;
+            TryGetComponent(out blackout);
             if (!player)
             {
                 var w = Object.FindFirstObjectByType<DormitoryWalkthrough>();
@@ -98,6 +99,7 @@ namespace Anihome.Dormitory
                 yield return new WaitForSecondsRealtime(feedbackSeconds);
             yield return FadeTo(1f);
 
+            if (blackout) blackout.ResetFloor();
             bool correct = anomalyActive
                 ? side == StairSide.Microwave
                 : side == StairSide.Opposite;
@@ -136,6 +138,7 @@ namespace Anihome.Dormitory
         void SetupLevel()
         {
             anomalyActive = Random.value < anomalyChance;
+            if (blackout) blackout.BeginFloor(anomalyActive, player, spawnPoint);
             ResetDoors();
             ApplySigns();
             Teleport();
@@ -243,7 +246,7 @@ namespace Anihome.Dormitory
             GUI.Label(new Rect(floorRect.x + 1, floorRect.y + 1, floorRect.width, floorRect.height), f, shade);
             GUI.Label(floorRect, f, big);
 
-            // 이상 현상 표시 (오른쪽 위) — 아직 미구현이라 글자만
+            // 이상 현상 표시 (오른쪽 위)
             if (anomalyActive && !cleared)
             {
                 string a = uiFont ? "이상 현상 층" : "ANOMALY FLOOR";

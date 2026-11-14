@@ -68,7 +68,9 @@ namespace Anihome.Dormitory.EditorTools
                 SetMap(m, roomTex);
                 Cutout(m, 0.35f);
                 TwoSided(m);
-                Emit(m, new Color(0.30f, 0.30f, 0.32f));   // 어두운 복도에서도 읽히게 아주 약하게
+                m.SetColor("_EmissionColor", Color.black);
+                m.DisableKeyword("_EMISSION");
+                m.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack;
             });
 
             Material elevMat = EnsureMat("Elevator_Floor_Sheet", m =>
