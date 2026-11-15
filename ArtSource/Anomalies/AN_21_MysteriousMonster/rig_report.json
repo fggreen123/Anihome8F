@@ -1,0 +1,15 @@
+{
+  "vertices": 24988,
+  "triangles": 50000,
+  "bones": 32,
+  "deform_bones": 23,
+  "weapon_vertices": 737,
+  "fallback_vertices": 0,
+  "unweighted_vertices": 0,
+  "max_influences": 4,
+  "rest_max_displacement_m": 0.0009656438114624599,
+  "weapon_rigidity_error_m": 1.3067263737731594e-07,
+  "tested_pose": "Both arms bent; left knee raised; head turned",
+  "source_triangles": 1961468,
+  "replacement_model": true
+}

@@ -1,0 +1,24 @@
+using UnityEngine;
+
+namespace Anihome.Dormitory
+{
+    // Copy this file into the numbered Scripts folder and rename the class and file.
+    public sealed class YourAnomaly : FloorAnomaly
+    {
+        public override int Number => 0; // Replace with the plan number.
+        protected override bool OnBeginFloor(AnomalyContext context)
+        {
+            // Cache original state and prepare the effect; false if references are missing.
+            return false;
+        }
+        void Update()
+        {
+            if (!CanTrigger) return;
+            // Check the player trigger only while this effect is selected.
+        }
+        protected override void OnResetFloor()
+        {
+            // Stop audio/coroutines, restore cached state and remove spawned objects.
+        }
+    }
+}

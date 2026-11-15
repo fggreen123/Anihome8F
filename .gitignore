@@ -104,3 +104,7 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Local backups created while organizing assets; keep them outside game imports and commits.
+/ProjectBackups/
+/ArtSource/Anomalies/AN_21_MysteriousMonster/Backups/

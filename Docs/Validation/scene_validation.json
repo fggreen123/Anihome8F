@@ -1,0 +1,46 @@
+{
+  "scenes": [
+    {
+      "path": "Assets/_Game/Scenes/Game.unity",
+      "objects": 3199,
+      "missingScripts": 0,
+      "missingMaterials": 0,
+      "missingPrefabObjects": 0,
+      "emptyRendererSlots": 1
+    },
+    {
+      "path": "Assets/_Game/Scenes/Intro.unity",
+      "objects": 9,
+      "missingScripts": 0,
+      "missingMaterials": 0,
+      "missingPrefabObjects": 0,
+      "emptyRendererSlots": 0
+    },
+    {
+      "path": "Assets/_Game/Scenes/Main.unity",
+      "objects": 3127,
+      "missingScripts": 0,
+      "missingMaterials": 0,
+      "missingPrefabObjects": 0,
+      "emptyRendererSlots": 1
+    },
+    {
+      "path": "Assets/_Game/Scenes/Sample.unity",
+      "objects": 2169,
+      "missingScripts": 0,
+      "missingMaterials": 0,
+      "missingPrefabObjects": 0,
+      "emptyRendererSlots": 1
+    }
+  ],
+  "prefabs": [
+    {
+      "path": "Assets/_Game/Anomalies/AN_21_MysteriousMonster/Prefabs/Grinner.prefab",
+      "missingScripts": 0
+    },
+    {
+      "path": "Assets/_Game/Environment/Dormitory/Prefabs/DormitoryFloor.prefab",
+      "missingScripts": 0
+    }
+  ]
+}

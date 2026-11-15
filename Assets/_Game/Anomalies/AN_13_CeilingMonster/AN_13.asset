@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc0d03ef1396f1468a6d56aa6deae42, type: 3}
+  m_Name: AN_13
+  m_EditorClassIdentifier: Assembly-CSharp::Anihome.Dormitory.AnomalyDefinition
+  number: 13
+  displayName: "\uD54F\uBB3C\uACFC \uAD34\uBB3C"
+  category: "\uACF5\uAC04/\uAD6C\uC870/UI"
+  location: "\uBCF5\uB3C4 \uCC9C\uC7A5"
+  description: "\uBCF5\uB3C4 \uCC9C\uC7A5 \uC704\uC5D0\uC11C \uAD6C\uBA4D\uC774\uC0DD\uAE30\uACE0
+    \uD54F\uBB3C\uC774 \uB611\uB611 \uB5A8\uC5B4\uC9C0\uACE0 \uADF8 \uBC14\uB2E5\uC5D0
+    \uBB3C\uC774 \uD765\uAC74\uD558\uBA70 \uC811\uADFC\uD558\uBA74 \uCC9C\uC7A5\uC5D0\uC11C
+    \uBB34\uC11C\uC6B4\uAC8C \uB5A8\uC5B4\uC9C4\uB2E4"
+  trigger: "\uD2B8\uB9AC\uAC70 \uC9C4\uC785"
+  resetCondition: "\uD574\uB2F9 \uAD6C\uAC04 \uC774\uD0C8 \uC2DC \uC6D0\uBCF5"
+  requiredAssets: "\uD54F\uBB3C \uC5D0\uC14B \uAD34\uBB3C\uC5D0\uC14B"
+  soundNotes: "\uBB3C\uBC29\uC6B8\uC18C\uB9AC \uAD34\uBB3C\uC18C\uB9AC \uB5A8\uC5B4\uC9C0\uB294
+    \uC18C\uB9AC"
+  selectionWeight: 4
+  implemented: 0

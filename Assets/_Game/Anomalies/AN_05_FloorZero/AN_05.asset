@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc0d03ef1396f1468a6d56aa6deae42, type: 3}
+  m_Name: AN_05
+  m_EditorClassIdentifier: Assembly-CSharp::Anihome.Dormitory.AnomalyDefinition
+  number: 5
+  displayName: "0\uCE35?"
+  category: "UI/\uD14D\uC2A4\uD2B8"
+  location: "\uCE35 \uD45C\uAE30\uD310"
+  description: "\uCE35 \uD45C\uAE30\uAC00 0 \uB610\uB294 0F\uB85C \uB418\uC5B4 \uC788\uB2E4"
+  trigger: "\uC0C1\uC2DC(\uC815\uC801)"
+  resetCondition: "\uD574\uB2F9 \uAD6C\uAC04 \uC774\uD0C8 \uC2DC \uC6D0\uBCF5"
+  requiredAssets: "\uCE35 \uD45C\uAE30\uD310 \uD14D\uC2A4\uCC98"
+  soundNotes: "\uC5C6\uC74C"
+  selectionWeight: 5
+  implemented: 0

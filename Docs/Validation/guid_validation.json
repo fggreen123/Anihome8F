@@ -1,0 +1,86 @@
+{
+  "originalGuids": 427,
+  "preservedActiveGuids": 412,
+  "archivedOriginalAssets": [
+    {
+      "old": "Assets/Characters/TheGrinner",
+      "new": "ArtSource/Anomalies/AN_21_MysteriousMonster/Legacy/UnityPrototypeAssets",
+      "guid": "11bda84a9b9ed0b46ba8cee5698829bd"
+    },
+    {
+      "old": "Assets/Characters/TheGrinner/Textures",
+      "new": "ArtSource/Anomalies/AN_21_MysteriousMonster/Legacy/UnityPrototypeAssets/Textures",
+      "guid": "8ef95b2832f466a4a852b59233943462"
+    },
+    {
+      "old": "Assets/Characters/TheGrinner/TheGrinner.fbx",
+      "new": "ArtSource/Anomalies/AN_21_MysteriousMonster/Legacy/UnityPrototypeAssets/TheGrinner.fbx",
+      "guid": "576e5ea0f7b1cdd42b7e1a9521a4688d"
+    },
+    {
+      "old": "Assets/Characters/TheGrinner/Textures/Grinner_Body_BaseColor.png",
+      "new": "ArtSource/Anomalies/AN_21_MysteriousMonster/Legacy/UnityPrototypeAssets/Textures/Grinner_Body_BaseColor.png",
+      "guid": "fb91b881d754b0d41acf128ad14a16c2"
+    },
+    {
+      "old": "Assets/Characters/TheGrinner/Textures/Grinner_Body_Normal.png",
+      "new": "ArtSource/Anomalies/AN_21_MysteriousMonster/Legacy/UnityPrototypeAssets/Textures/Grinner_Body_Normal.png",
+      "guid": "b0aa6058a4872e641b03f1c6bc8a79df"
+    },
+    {
+      "old": "Assets/Characters/TheGrinner/Textures/Grinner_Body_Roughness.png",
+      "new": "ArtSource/Anomalies/AN_21_MysteriousMonster/Legacy/UnityPrototypeAssets/Textures/Grinner_Body_Roughness.png",
+      "guid": "ea5b7d66156d04b42ade8f009740529f"
+    },
+    {
+      "old": "Assets/Characters/TheGrinner/Textures/Grinner_Weapon_BaseColor.png",
+      "new": "ArtSource/Anomalies/AN_21_MysteriousMonster/Legacy/UnityPrototypeAssets/Textures/Grinner_Weapon_BaseColor.png",
+      "guid": "328b7be69c24e034e852ae0b9ffe2a03"
+    },
+    {
+      "old": "Assets/Characters/TheGrinner/Textures/Grinner_Weapon_Normal.png",
+      "new": "ArtSource/Anomalies/AN_21_MysteriousMonster/Legacy/UnityPrototypeAssets/Textures/Grinner_Weapon_Normal.png",
+      "guid": "f8ffbfb287d0c3b44a412a8b6009c276"
+    },
+    {
+      "old": "Assets/Characters/TheGrinner/Textures/Grinner_Weapon_Roughness.png",
+      "new": "ArtSource/Anomalies/AN_21_MysteriousMonster/Legacy/UnityPrototypeAssets/Textures/Grinner_Weapon_Roughness.png",
+      "guid": "b415e85f6adf3b346bcb4ed3d66135e3"
+    },
+    {
+      "old": "Assets/Sounds/녹음 2026-11-14 181352.mp3",
+      "new": "ArtSource/Anomalies/AN_11_Blackout/Audio/Recorded_Audio_20261114_181352.mp3",
+      "guid": "37ab751f2caea3446a94e2658258faa4"
+    }
+  ],
+  "removedEmptyFolders": [
+    {
+      "path": "Assets/Characters",
+      "guid": "e161023c9b3af53419a9e3cea25014a9",
+      "is_folder": true
+    },
+    {
+      "path": "Assets/Sounds",
+      "guid": "04f1fbeda2cd5a44bb6cfa1dde97b9cb",
+      "is_folder": true
+    },
+    {
+      "path": "Assets/Stringe Effect",
+      "guid": "03872e74b3288f243acd8e867362629c",
+      "is_folder": true
+    },
+    {
+      "path": "Assets/DormitoryReconstruction/Audio",
+      "guid": "8d81c1faece7467448e666f9c16b8e0d",
+      "is_folder": true
+    },
+    {
+      "path": "Assets/Sounds/Anomaly",
+      "guid": "269a203d906ee1c42a4c4a2afddfa4e1",
+      "is_folder": true
+    }
+  ],
+  "missingOriginalFileGuids": [],
+  "duplicateActiveGuids": {},
+  "nonEnglishFileNames": []
+}

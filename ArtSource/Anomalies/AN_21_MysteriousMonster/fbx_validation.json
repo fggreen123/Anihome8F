@@ -1,0 +1,16 @@
+{
+  "meshes": 1,
+  "armatures": 1,
+  "bones": 24,
+  "vertices": 24988,
+  "triangles": 50000,
+  "weighted_vertices": 24988,
+  "max_influences": 4,
+  "texture_images": [
+    "undead_zombie_3d_model_basecolor.001",
+    "undead_zombie_3d_model_metallic.001",
+    "undead_zombie_3d_model_normal.001",
+    "undead_zombie_3d_model_roughness.001"
+  ],
+  "passed": true
+}

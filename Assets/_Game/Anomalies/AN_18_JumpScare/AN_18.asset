@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc0d03ef1396f1468a6d56aa6deae42, type: 3}
+  m_Name: AN_18
+  m_EditorClassIdentifier: Assembly-CSharp::Anihome.Dormitory.AnomalyDefinition
+  number: 18
+  displayName: "\uAE5C\uC9DD\uB180\uB790\uC9C0"
+  category: NPC
+  location: "\uBCF5\uB3C4 \uC911\uAC04 \uC57D 5\uD638\uCBE4?"
+  description: "\uADC0\uC2E0\uC774 \uD655 \uD280\uC5B4\uB098\uC628\uB2E4"
+  trigger: "5\uD638 \uC9C0\uB0A0 \uB54C\uCBE4"
+  resetCondition: "\uD574\uB2F9 \uAD6C\uAC04 \uC774\uD0C8 \uC2DC \uC6D0\uBCF5"
+  requiredAssets: 
+  soundNotes: 
+  selectionWeight: 2
+  implemented: 0

@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "sceneCount": 4,
+  "prefabCount": 2,
+  "blackoutChecks": 15,
+  "footstepPlaybackPassed": true,
+  "characterHumanoidPassed": true,
+  "characterTriangles": 50000,
+  "unexpectedMissingOriginalFileGuids": 0,
+  "nonEnglishAssetFileNames": 0,
+  "notes": [
+    "Only AN_11 behavior is implemented. AN_21 character prefab is ready; pursuit and animation clips are pending.",
+    "AN_23 and AN_24 are reserved because the design has no content.",
+    "Whole-map frame performance on the expo PC has not been measured."
+  ]
+}

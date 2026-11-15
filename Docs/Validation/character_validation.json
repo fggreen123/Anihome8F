@@ -1,0 +1,13 @@
+{
+  "avatarValid": true,
+  "isHuman": true,
+  "changedMuscles": [
+    "Left Upper Leg Front-Back",
+    "Left Arm Front-Back"
+  ],
+  "meshMovedMeters": 0.427905977,
+  "triangles": 50000,
+  "material": "Grinner_Body",
+  "shader": "Universal Render Pipeline/Lit",
+  "preview": "Docs/Previews/Grinner_UnityPreview.png"
+}

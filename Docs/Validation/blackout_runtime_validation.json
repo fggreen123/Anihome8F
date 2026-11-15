@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checks": [
+    "Implemented blackout selected when anomaly chance is 1",
+    "20 selections always prepare one effect; no second random rejection",
+    "Corridor midpoint triggers actual light blackout",
+    "Ambient lighting and reflection dim to blackout level",
+    "Player near-surface helper light enabled",
+    "Blackout audio source prepared",
+    "Correct stair transition accepted on anomaly floor",
+    "Correct anomaly stair descends from floor 8 to 7",
+    "Floor transition restores all original light intensities and enabled states",
+    "Floor transition restores ambient colors and reflection",
+    "Helper light disabled after floor reset",
+    "Normal floor has no active anomaly",
+    "No available effects results in a normal floor",
+    "Missing effect references cannot create an empty anomaly floor",
+    "Blackout can be selected again after reset"
+  ],
+  "failures": [],
+  "values": {
+    "disabledLightsDuringBlackout": 31,
+    "maxRestoredLightIntensityError": 0.0
+  }
+}
