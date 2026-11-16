@@ -32,18 +32,38 @@ namespace Anihome.Dormitory
                 }
                 var choice = candidates[selected];
                 candidates.RemoveAt(selected);
-                try
-                {
-                    if (!choice.TryBeginFloor(context)) continue;
-                    active = choice;
-                    return true;
-                }
-                catch (System.Exception exception)
-                {
-                    Debug.LogException(exception, choice);
-                }
+                if (TryActivate(choice, context)) return true;
             }
             return false;
+        }
+
+        internal bool TryApply(int number, AnomalyContext context)
+        {
+            if (ActiveNumber == number) return true;
+
+            anomalies = GetComponentsInChildren<FloorAnomaly>(true);
+            foreach (var anomaly in anomalies)
+            {
+                if (!anomaly || anomaly.Number != number || !anomaly.IsAvailable) continue;
+                ResetFloor();
+                return TryActivate(anomaly, context);
+            }
+            return false;
+        }
+
+        bool TryActivate(FloorAnomaly choice, AnomalyContext context)
+        {
+            try
+            {
+                if (!choice.TryBeginFloor(context)) return false;
+                active = choice;
+                return true;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogException(exception, choice);
+                return false;
+            }
         }
 
         public void ResetFloor()

@@ -93332,6 +93332,8 @@ MonoBehaviour:
   hingeAxis: {x: 0, y: -0.00000023841858, z: 1}
   openAngle: -80
   swingSpeed: 170
+  openingSmoothTime: 0.16
+  closingSmoothTime: 0.19
   startOpen: 0
   locked: 0
   carried:
@@ -93339,6 +93341,7 @@ MonoBehaviour:
   - {fileID: 1756385320}
   labelKo: "\uB458\uC9F8 \uCE78 \uBB38"
   labelEn: Toilet Stall 2
+  showDoorBadge: 0
   audioSource: {fileID: 0}
   openClip: {fileID: 0}
   closeClip: {fileID: 0}
@@ -111859,6 +111862,8 @@ MonoBehaviour:
   hingeAxis: {x: 0, y: -0.00000023841858, z: 1}
   openAngle: -70
   swingSpeed: 170
+  openingSmoothTime: 0.16
+  closingSmoothTime: 0.19
   startOpen: 0
   locked: 0
   carried:
@@ -111866,6 +111871,7 @@ MonoBehaviour:
   - {fileID: 1756385322}
   labelKo: "\uBCC0\uAE30\uCE78 \uBB38"
   labelEn: Toilet Stall
+  showDoorBadge: 0
   audioSource: {fileID: 0}
   openClip: {fileID: 0}
   closeClip: {fileID: 0}
@@ -113675,11 +113681,14 @@ MonoBehaviour:
   hingeAxis: {x: 0, y: 1, z: 0}
   openAngle: 90
   swingSpeed: 185
+  openingSmoothTime: 0.16
+  closingSmoothTime: 0.19
   startOpen: 0
   locked: 0
   carried: []
   labelKo: "\uD654\uC7A5\uC2E4 \uBB38"
   labelEn: Restroom Door
+  showDoorBadge: 0
   audioSource: {fileID: 0}
   openClip: {fileID: 0}
   closeClip: {fileID: 0}
@@ -154445,11 +154454,14 @@ MonoBehaviour:
   hingeAxis: {x: 0, y: 1, z: 0}
   openAngle: 90
   swingSpeed: 185
+  openingSmoothTime: 0.16
+  closingSmoothTime: 0.19
   startOpen: 0
   locked: 0
   carried: []
   labelKo: "\uB3C5\uC11C\uC2E4 \uBB38"
   labelEn: Reading Room Door
+  showDoorBadge: 0
   audioSource: {fileID: 0}
   openClip: {fileID: 0}
   closeClip: {fileID: 0}

@@ -90639,6 +90639,7 @@ GameObject:
   - component: {fileID: 624805918}
   - component: {fileID: 624805920}
   - component: {fileID: 624805921}
+  - component: {fileID: 624805922}
   m_Layer: 0
   m_Name: GameLoop
   m_TagString: Untagged
@@ -90737,6 +90738,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fdb769effc743a47bcabd8d70d8c590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Anihome.Dormitory.FloorAnomalyController
+--- !u!114 &624805922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624805917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0779229f38d492c937b6886fd7e3ac2, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Anihome.Dormitory.AnomalyAdminPanel
+  font: {fileID: 11400000, guid: 3999936e5cc0ecb4f9d172c1944ec13d, type: 2}
+  entries:
+  - {fileID: 11400000, guid: e308f0d03cda64645917b0ed0b0a03c0, type: 2}
+  - {fileID: 11400000, guid: f5ce65f9f2928e74bb93c518f2b136a3, type: 2}
+  - {fileID: 11400000, guid: afc9c70594146de48a5438b13a7a1509, type: 2}
+  - {fileID: 11400000, guid: c45f75dfc23191a45b26de799fd91d10, type: 2}
+  - {fileID: 11400000, guid: 4eeb91771482cfa4f8a1fd80c64125c0, type: 2}
+  - {fileID: 11400000, guid: df4d015aef319d243b37b93061509ccc, type: 2}
+  - {fileID: 11400000, guid: 4968258accd62024491f50047e1a8351, type: 2}
+  - {fileID: 11400000, guid: a25517b5a49db1442a921948147ad24b, type: 2}
+  - {fileID: 11400000, guid: 43f189f08854b724cb3fb71057153d7f, type: 2}
+  - {fileID: 11400000, guid: 961119ddef7031b41943310259bd9862, type: 2}
+  - {fileID: 11400000, guid: 244a641af84dae9489e450c2a681de7e, type: 2}
+  - {fileID: 11400000, guid: 8eadf456572c0bd46bde1ea64499ea5f, type: 2}
+  - {fileID: 11400000, guid: 454bc9b1864eec043bccd51e00384806, type: 2}
+  - {fileID: 11400000, guid: 0523bce6c4a4f25428dcfc358ae8e01c, type: 2}
+  - {fileID: 11400000, guid: 244b62b8306a80e439d4d0c44fb23ce8, type: 2}
+  - {fileID: 11400000, guid: 84eadec94c2e449499e9e573a96160de, type: 2}
+  - {fileID: 11400000, guid: 9f2ce6a75a5ea4d488e01b60a8644a1f, type: 2}
+  - {fileID: 11400000, guid: 230ee61b2b0ccab4b84dfce172cfbe49, type: 2}
+  - {fileID: 11400000, guid: 79d70e750afb0cb4f8027645899a9978, type: 2}
+  - {fileID: 11400000, guid: f2715195b4e2f1b438bdf7170e848cc8, type: 2}
+  - {fileID: 11400000, guid: ac6d827e30ad01f48be4d2fd1a76f3f5, type: 2}
+  - {fileID: 11400000, guid: bd3fa3afde80b8848b5f22957ba5897f, type: 2}
 --- !u!1 &626063707
 GameObject:
   m_ObjectHideFlags: 0

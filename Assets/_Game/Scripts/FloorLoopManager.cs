@@ -95,6 +95,14 @@ namespace Anihome.Dormitory
             return true;
         }
 
+        internal bool TryApplyAnomaly(int number)
+        {
+            if (number <= 0 || busy || cleared || currentFloor <= goalFloor || !anomalies) return false;
+            bool applied = anomalies.TryApply(number, new AnomalyContext(player, spawnPoint, this));
+            anomalyActive = anomalies.ActiveNumber > 0;
+            return applied;
+        }
+
         IEnumerator DescendRoutine(StairSide side, float feedbackSeconds)
         {
             busy = true;
