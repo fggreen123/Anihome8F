@@ -19,13 +19,14 @@ namespace Anihome.Dormitory
         [Min(0f)] public float reach = 0.35f;
 
         static readonly List<StairGate> ActiveGates = new List<StairGate>();
+        const float BadgeHeight = 1.1f;
         BoxCollider box;
 
         internal Vector3 BadgeAnchor
         {
             get
             {
-                Vector3 offset = new Vector3(0f, box.size.y * 0.17f, box.size.z * 0.5f);
+                Vector3 offset = new Vector3(0f, BadgeHeight - box.size.y * 0.5f, box.size.z * 0.5f);
                 return transform.TransformPoint(box.center + offset);
             }
         }
