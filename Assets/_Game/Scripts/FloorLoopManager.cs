@@ -28,6 +28,7 @@ namespace Anihome.Dormitory
         [Header("참조")]
         public Transform player;
         public Transform spawnPoint;
+        [SerializeField] GameObject anomalyFloorLabel;
         public FloorSign[] signs = new FloorSign[0];
         [Tooltip("칸 번호 = 표지판 위쪽에 적히는 층. 2~12층만 쓴다.")]
         public Material[] signByUpperFloor = new Material[13];
@@ -55,7 +56,7 @@ namespace Anihome.Dormitory
         string message;
         float messageLeft;
 
-        GUIStyle big, mid, small, shade;
+        GUIStyle big, small, shade;
         Texture2D solid;
         Font uiFont;
         bool fontChecked;
@@ -72,7 +73,11 @@ namespace Anihome.Dormitory
             if (player) body = player.GetComponent<CharacterController>();
         }
 
-        void OnDisable() { if (anomalies) anomalies.ResetFloor(); }
+        void OnDisable()
+        {
+            if (anomalies) anomalies.ResetFloor();
+            SetAnomalyActive(false);
+        }
         void OnDestroy() { if (Instance == this) Instance = null; }
 
         void Start() => BeginRun();
@@ -99,7 +104,7 @@ namespace Anihome.Dormitory
         {
             if (number <= 0 || busy || cleared || currentFloor <= goalFloor || !anomalies) return false;
             bool applied = anomalies.TryApply(number, new AnomalyContext(player, spawnPoint, this));
-            anomalyActive = anomalies.ActiveNumber > 0;
+            SetAnomalyActive(anomalies.ActiveNumber > 0);
             return applied;
         }
 
@@ -124,6 +129,7 @@ namespace Anihome.Dormitory
                 {
                     currentFloor = goalFloor;
                     cleared = true;
+                    SetAnomalyActive(false);
                     ApplySigns();
                     Teleport();
                     message = null;
@@ -153,8 +159,14 @@ namespace Anihome.Dormitory
             ApplySigns();
             Teleport();
             // Only a successfully prepared effect makes this an anomaly floor.
-            anomalyActive = Random.value < anomalyChance && anomalies &&
-                anomalies.BeginFloor(player, spawnPoint, this);
+            SetAnomalyActive(Random.value < anomalyChance && anomalies &&
+                anomalies.BeginFloor(player, spawnPoint, this));
+        }
+
+        void SetAnomalyActive(bool active)
+        {
+            anomalyActive = active;
+            if (anomalyFloorLabel) anomalyFloorLabel.SetActive(active);
         }
 
         void ResetDoors()
@@ -234,11 +246,9 @@ namespace Anihome.Dormitory
             if (big != null) return;
 
             big = new GUIStyle(GUI.skin.label) { fontSize = 30, alignment = TextAnchor.MiddleLeft };
-            mid = new GUIStyle(GUI.skin.label) { fontSize = 21, alignment = TextAnchor.MiddleRight };
             small = new GUIStyle(GUI.skin.label) { fontSize = 24, alignment = TextAnchor.MiddleCenter };
-            if (uiFont) { big.font = uiFont; mid.font = uiFont; small.font = uiFont; }
+            if (uiFont) { big.font = uiFont; small.font = uiFont; }
             big.normal.textColor = new Color(1f, 1f, 1f, 0.95f);
-            mid.normal.textColor = new Color(1f, 0.72f, 0.36f, 0.98f);
             small.normal.textColor = new Color(1f, 1f, 1f, 0.95f);
             shade = new GUIStyle(big);
             shade.normal.textColor = new Color(0f, 0f, 0f, 0.7f);
@@ -258,15 +268,6 @@ namespace Anihome.Dormitory
             string f = cleared ? (uiFont ? "탈출 성공" : "ESCAPED") : $"{currentFloor}F";
             GUI.Label(new Rect(floorRect.x + 1, floorRect.y + 1, floorRect.width, floorRect.height), f, shade);
             GUI.Label(floorRect, f, big);
-
-            // 이상 현상 표시 (오른쪽 위)
-            if (anomalyActive && !cleared)
-            {
-                string a = uiFont ? "이상 현상 층" : "ANOMALY FLOOR";
-                var r = new Rect(Screen.width - 304f, 20f, 280f, 32f);
-                GUI.Label(new Rect(r.x + 1, r.y + 1, r.width, r.height), a, shade);
-                GUI.Label(r, a, mid);
-            }
 
             // 가운데 안내
             if (messageLeft > 0f && !string.IsNullOrEmpty(message) && fade < 0.5f)
