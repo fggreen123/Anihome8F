@@ -46,6 +46,7 @@ namespace Anihome.Dormitory
         public int CurrentFloor => currentFloor;
         public bool AnomalyActive => anomalyActive;
         public bool Busy => busy;
+        public bool CaptureInProgress { get; private set; }
         public bool Cleared => cleared;
         public int ActiveAnomalyNumber => anomalies ? anomalies.ActiveNumber : 0;
 
@@ -75,6 +76,7 @@ namespace Anihome.Dormitory
 
         void OnDisable()
         {
+            CaptureInProgress = false;
             if (anomalies) anomalies.ResetFloor();
             SetAnomalyActive(false);
         }
@@ -100,6 +102,14 @@ namespace Anihome.Dormitory
             return true;
         }
 
+        internal bool RequestCapture(float scareSeconds)
+        {
+            if (busy || cleared) return false;
+            CaptureInProgress = true;
+            StartCoroutine(DescendRoutine(StairSide.Opposite, scareSeconds, true));
+            return true;
+        }
+
         internal bool TryApplyAnomaly(int number)
         {
             if (number <= 0 || busy || cleared || currentFloor <= goalFloor || !anomalies) return false;
@@ -108,7 +118,7 @@ namespace Anihome.Dormitory
             return applied;
         }
 
-        IEnumerator DescendRoutine(StairSide side, float feedbackSeconds)
+        IEnumerator DescendRoutine(StairSide side, float feedbackSeconds, bool caught = false)
         {
             busy = true;
             if (feedbackSeconds > 0f)
@@ -116,9 +126,9 @@ namespace Anihome.Dormitory
             yield return FadeTo(1f);
 
             if (anomalies) anomalies.ResetFloor();
-            bool correct = anomalyActive
+            bool correct = !caught && (anomalyActive
                 ? side == StairSide.Microwave
-                : side == StairSide.Opposite;
+                : side == StairSide.Opposite);
 
             loopCount++;
 
@@ -148,6 +158,7 @@ namespace Anihome.Dormitory
             SetupLevel();
             yield return new WaitForSeconds(0.12f);
             yield return FadeTo(0f);
+            CaptureInProgress = false;
             busy = false;
         }
 

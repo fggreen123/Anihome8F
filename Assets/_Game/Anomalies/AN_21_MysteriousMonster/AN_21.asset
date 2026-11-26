@@ -15,12 +15,11 @@ MonoBehaviour:
   number: 21
   displayName: "\uC758\uBB38\uC758 \uAD34\uBB3C"
   category: "\uC624\uBE0C\uC81D\uD2B8"
-  location: "\uC62C\uB77C\uAC00\uC57C\uD560 \uACC4\uB2E8"
-  description: "\uBCF5\uB3C4 \uC911\uAC04\uCBE4 \uD070 \uBC1C\uC18C\uB9AC\uB85C \uB4A4\uC5D0\uC11C
-    \uB0A8\uC131\uC774 \uB530\uB77C\uC628\uB2E4"
-  trigger: "5\uD638\uC9C0\uB0A0\uB54C\uCBE4"
-  resetCondition: "\uD574\uB2F9 \uAD6C\uAC04 \uC774\uD0C8 \uC2DC \uC6D0\uBCF5"
-  requiredAssets: "\uB0A8\uC131"
-  soundNotes: "\uC0AC\uC6B4\uB4DC"
+  location: 반대편 계단과 복도
+  description: 복도 중간에서 반대편 계단을 내려온 괴물이 플레이어를 추격한다.
+  trigger: 복도 중앙 진입
+  resetCondition: 붙잡히면 8층으로 복귀하고 계단 판정 시 추격을 종료한다.
+  requiredAssets: Grinner 프리팹
+  soundNotes: 공간 발소리와 포획 효과음
   selectionWeight: 1
-  implemented: 0
+  implemented: 1

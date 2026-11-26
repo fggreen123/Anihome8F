@@ -1,7 +1,11 @@
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.UI;
 
 namespace Anihome.Dormitory
 {
@@ -84,7 +88,52 @@ namespace Anihome.Dormitory
             if (floorLabel) floorLabel.text = $"현재 층  {loop.CurrentFloor}F";
             if (statusLabel) statusLabel.text = loop.ActiveAnomalyNumber > 0
                 ? $"현재 층에 등장: {loop.ActiveAnomalyNumber:00}" : "";
+            RefreshAnomalyRows(loop);
             panel.SetActive(true);
+        }
+
+        void RefreshAnomalyRows(FloorLoopManager loop)
+        {
+            var list = panel.GetComponentInChildren<ScrollRect>(true);
+            if (!list || !list.content) return;
+
+            const string prefix = "Anomaly ";
+            var rows = new Dictionary<int, Transform>();
+            Transform template = null;
+            foreach (Transform row in list.content)
+            {
+                if (!row.name.StartsWith(prefix, StringComparison.Ordinal) ||
+                    !int.TryParse(row.name.Substring(prefix.Length), out int number)) continue;
+                var button = row.GetComponentInChildren<Button>(true);
+                if (!button) continue;
+                button.interactable = false;
+                rows[number] = row;
+                if (!template) template = row;
+            }
+            if (!template) return;
+
+            var registered = loop.GetComponent<FloorAnomalyController>().GetRegisteredAnomalies();
+            Array.Sort(registered, (left, right) => left.Number.CompareTo(right.Number));
+            foreach (var anomaly in registered)
+            {
+                if (!anomaly.IsAvailable) continue;
+                int number = anomaly.Number;
+                if (!rows.TryGetValue(number, out Transform row))
+                {
+                    row = Instantiate(template, list.content, false);
+                    row.name = $"{prefix}{number:00}";
+                    row.Find("Number").GetComponent<TMP_Text>().text = $"{number:00}";
+                    row.Find("Name").GetComponent<TMP_Text>().text = anomaly.definition &&
+                        !string.IsNullOrWhiteSpace(anomaly.definition.displayName)
+                        ? anomaly.definition.displayName : row.name;
+                    var newButton = row.GetComponentInChildren<Button>(true);
+                    for (int i = 0; i < newButton.onClick.GetPersistentEventCount(); i++)
+                        newButton.onClick.SetPersistentListenerState(i, UnityEventCallState.Off);
+                    newButton.onClick.AddListener(() => ApplyAnomaly(number));
+                    rows.Add(number, row);
+                }
+                row.GetComponentInChildren<Button>(true).interactable = true;
+            }
         }
 
         public void Close()
