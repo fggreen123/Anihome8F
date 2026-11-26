@@ -10,10 +10,12 @@ namespace Anihome.Dormitory
         FloorAnomaly active;
         public int ActiveNumber => active ? active.Number : 0;
 
+        internal FloorAnomaly[] GetRegisteredAnomalies() => GetComponentsInChildren<FloorAnomaly>(true);
+
         public bool BeginFloor(Transform player, Transform spawnPoint, FloorLoopManager loop)
         {
             ResetFloor();
-            anomalies = GetComponentsInChildren<FloorAnomaly>(true);
+            anomalies = GetRegisteredAnomalies();
             var candidates = new List<FloorAnomaly>();
             foreach (var anomaly in anomalies)
                 if (anomaly && anomaly.IsAvailable) candidates.Add(anomaly);
@@ -41,7 +43,7 @@ namespace Anihome.Dormitory
         {
             if (ActiveNumber == number) return true;
 
-            anomalies = GetComponentsInChildren<FloorAnomaly>(true);
+            anomalies = GetRegisteredAnomalies();
             foreach (var anomaly in anomalies)
             {
                 if (!anomaly || anomaly.Number != number || !anomaly.IsAvailable) continue;

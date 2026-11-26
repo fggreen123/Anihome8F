@@ -118,6 +118,8 @@ namespace Anihome.Dormitory
         void Update()
         {
             if (!viewCamera || !body) return;
+            var loop = FloorLoopManager.Instance;
+            if (loop && loop.player == transform && loop.CaptureInProgress) return;
             staminaBarShakeRemaining = Mathf.Max(0f, staminaBarShakeRemaining - Time.unscaledDeltaTime);
             if (!camHomeCached)
             {

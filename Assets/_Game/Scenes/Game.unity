@@ -90017,6 +90017,7 @@ GameObject:
   - component: {fileID: 624805918}
   - component: {fileID: 624805920}
   - component: {fileID: 624805921}
+  - component: {fileID: 624805922}
   m_Layer: 0
   m_Name: GameLoop
   m_TagString: Untagged
@@ -90116,6 +90117,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fdb769effc743a47bcabd8d70d8c590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Anihome.Dormitory.FloorAnomalyController
+--- !u!114 &624805922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624805917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d67217bd499347d9a8852e52407cbb80, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Anihome.Dormitory.MysteriousMonsterAnomaly
+  definition: {fileID: 11400000, guid: ac6d827e30ad01f48be4d2fd1a76f3f5, type: 2}
+  monsterPrefab: {fileID: 1570234730581842921, guid: 3f6cf4e5dca66b248a9d8c63146dd698, type: 3}
+  corridorStart: {fileID: 479742985}
+  corridorEnd: {fileID: 644244353}
+  farStairs: {fileID: 1325998065}
+  footstep: {fileID: 8300000, guid: 8105bb519692b1a4aa4cce61d0b5245d, type: 3}
+  sting: {fileID: 8300000, guid: 066e6e4d3bb045241a115a50b66798cc, type: 3}
 --- !u!1 &626063707
 GameObject:
   m_ObjectHideFlags: 0
@@ -242183,7 +242203,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 30ee8450a72189640a228dc62ec316b8, type: 2}
+  - {fileID: 2100000, guid: 38f1307dc3164f13ae7d904b02275ae4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
